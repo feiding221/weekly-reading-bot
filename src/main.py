@@ -1,4 +1,4 @@
-from notion_client import create_test_page
+from notion_api import create_test_page
 
 
 if __name__ == "__main__":
