@@ -1,10 +1,13 @@
 from notion_client import Client
 from config import NOTION_TOKEN, NOTION_DATABASE_ID
+from datetime import datetime
 
 notion = Client(auth=NOTION_TOKEN)
 
 
 def create_reading_page(data):
+    today = datetime.now().strftime("%Y-%m-%d")
+
     return notion.pages.create(
         parent={"database_id": NOTION_DATABASE_ID},
         properties={
@@ -13,10 +16,18 @@ def create_reading_page(data):
                     {"text": {"content": data.get("title", "Weekly Reading")}}
                 ]
             },
+            "日期": {
+                "date": {
+                    "start": today
+                }
+            },
             "中文导读": {
                 "rich_text": [
                     {"text": {"content": data.get("summary", "")[:1900]}}
                 ]
+            },
+            "已读": {
+                "checkbox": False
             },
             "推荐理由": {
                 "rich_text": [
@@ -33,18 +44,17 @@ def create_reading_page(data):
                     {"name": tag} for tag in data.get("tags", [])
                 ]
             },
-            "阅读时间": {
-                "number": parse_reading_time(data.get("reading_time", ""))
-            },
             "链接": {
                 "url": data.get("url") or None
+            },
+            "阅读时间": {
+                "number": parse_reading_time(data.get("reading_time", ""))
             }
         }
     )
 
 
 def parse_reading_time(value):
-    """Convert text like '约2周' or '30分钟' to a number if possible."""
     import re
 
     if not value:
