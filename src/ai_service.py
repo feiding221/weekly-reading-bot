@@ -8,7 +8,7 @@ client = OpenAI(
 )
 
 
-def generate_reading_recommendation():
+def generate_reading_recommendation(articles):
     response = client.chat.completions.create(
         model="deepseek-chat",
         response_format={"type": "json_object"},
@@ -16,25 +16,26 @@ def generate_reading_recommendation():
             {
                 "role": "system",
                 "content": """
-你是一个专业阅读推荐助手。
-请严格输出 JSON，不要输出 Markdown。
+你是一个个人知识管理助手。
+
+请从候选文章中选择最值得大学生阅读的一篇，并输出 JSON。
+不要输出 Markdown。
 
 字段要求：
-- title: 书籍标题
+- title: 标题
 - summary: 中文导读
 - reason: 推荐理由
-- source: 来源（作者、出版社或推荐来源）
+- source: 来源
 - tags: 标签数组
-- reading_time: 预计阅读时间
-- url: 相关链接，没有则为空字符串
+- reading_time: 预计阅读时间（数字）
+- url: 原文链接
 """
             },
             {
                 "role": "user",
-                "content": "推荐一本适合大学生每周阅读的书，并生成结构化信息。"
+                "content": json.dumps(articles, ensure_ascii=False)
             }
         ]
     )
 
-    content = response.choices[0].message.content
-    return json.loads(content)
+    return json.loads(response.choices[0].message.content)
