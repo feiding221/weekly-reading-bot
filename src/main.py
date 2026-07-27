@@ -1,4 +1,4 @@
-from notion_api import create_test_page
+from notion_api import create_reading_page
 from ai_service import generate_reading_recommendation
 
 
@@ -9,5 +9,5 @@ if __name__ == "__main__":
     print("Generated recommendation:")
     print(recommendation)
 
-    result = create_test_page()
+    result = create_reading_page(recommendation)
     print("Created Notion page:", result["id"])
