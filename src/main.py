@@ -1,5 +1,5 @@
 from notion_api import create_reading_page
-from ai_service import generate_reading_recommendation
+from ai_service import generate_reading_recommendations
 from content_fetcher import fetch_articles
 
 
@@ -9,12 +9,13 @@ if __name__ == "__main__":
     articles = fetch_articles()
 
     print("Fetched articles:")
-    print(articles)
+    print(len(articles), "articles")
 
-    recommendation = generate_reading_recommendation(articles)
+    recommendations = generate_reading_recommendations(articles)
 
-    print("Generated recommendation:")
-    print(recommendation)
+    print("Generated recommendations:")
+    print(recommendations)
 
-    result = create_reading_page(recommendation)
-    print("Created Notion page:", result["id"])
+    for item in recommendations:
+        result = create_reading_page(item)
+        print("Created Notion page:", result["id"])
