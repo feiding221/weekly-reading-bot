@@ -24,9 +24,9 @@ def create_reading_page(data):
                 ]
             },
             "来源": {
-                "rich_text": [
-                    {"text": {"content": data.get("source", "")[:1900]}}
-                ]
+                "select": {
+                    "name": data.get("source", "未知来源")
+                }
             },
             "标签": {
                 "multi_select": [
@@ -34,12 +34,24 @@ def create_reading_page(data):
                 ]
             },
             "阅读时间": {
-                "rich_text": [
-                    {"text": {"content": data.get("reading_time", "")}}
-                ]
+                "number": parse_reading_time(data.get("reading_time", ""))
             },
             "链接": {
                 "url": data.get("url") or None
             }
         }
     )
+
+
+def parse_reading_time(value):
+    """Convert text like '约2周' or '30分钟' to a number if possible."""
+    import re
+
+    if not value:
+        return None
+
+    match = re.search(r"\d+", str(value))
+    if match:
+        return int(match.group())
+
+    return None
