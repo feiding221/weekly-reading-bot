@@ -8,7 +8,7 @@ client = OpenAI(
 )
 
 
-def generate_reading_recommendations(articles, limit=3):
+def generate_reading_recommendations(articles, limit=1):
     response = client.chat.completions.create(
         model="deepseek-chat",
         response_format={"type": "json_object"},
@@ -19,6 +19,7 @@ def generate_reading_recommendations(articles, limit=3):
 你是一个个人知识管理助手，负责为大学生筛选高价值阅读内容。
 
 请从候选文章中筛选最值得阅读的内容。
+
 优先考虑：AI、编程、创业、商业、科研趋势。
 
 重要要求：
@@ -48,7 +49,7 @@ def generate_reading_recommendations(articles, limit=3):
   ]
 }
 
-只返回最高价值的3篇文章。
+只返回最高价值的1篇文章。
 """
             },
             {
