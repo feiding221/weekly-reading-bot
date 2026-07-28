@@ -8,7 +8,7 @@ client = OpenAI(
 )
 
 
-def generate_reading_recommendations(articles, limit=1):
+def generate_reading_recommendations(articles, limit=3):
     response = client.chat.completions.create(
         model="deepseek-chat",
         response_format={"type": "json_object"},
@@ -49,7 +49,7 @@ def generate_reading_recommendations(articles, limit=1):
   ]
 }
 
-只返回最高价值的1篇文章。
+只返回最高价值的3篇文章。
 """
             },
             {
