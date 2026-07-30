@@ -52,14 +52,6 @@ def create_reading_page(data):
             "select": {
                 "name": data.get("category", "其他")
             }
-        },
-        "优先级": {
-            "select": {
-                "name": data.get("priority", "中")
-            }
-        },
-        "评分": {
-            "number": data.get("score", 0)
         }
     }
 
