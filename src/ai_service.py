@@ -20,7 +20,7 @@ def generate_reading_recommendations(articles, limit=3):
 
 请从候选文章中筛选最值得阅读的内容。
 
-优先考虑：AI、编程、创业、商业、科研趋势。
+优先考虑：AI、编程、创业、商业、科研趋势、AI创作工具和数字媒体技术相关内容。
 
 重要要求：
 1. 所有输出字段必须使用中文。
@@ -42,9 +42,7 @@ def generate_reading_recommendations(articles, limit=3):
       "tags": [],
       "reading_time": 0,
       "url": "",
-      "category": "",
-      "priority": "高/中/低",
-      "score": 0
+      "category": ""
     }
   ]
 }
