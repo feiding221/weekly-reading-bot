@@ -3,7 +3,7 @@ name: Weekly Reading Bot
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "0 22 * * *"
 
 permissions:
   contents: write
