@@ -1,12 +1,13 @@
 from notion_client import Client
 from config import NOTION_TOKEN, NOTION_DATABASE_ID
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 notion = Client(auth=NOTION_TOKEN)
 
 
 def create_reading_page(data):
-    today = datetime.now().strftime("%Y-%m-%d")
+    beijing_timezone = timezone(timedelta(hours=8))
+    today = datetime.now(beijing_timezone).strftime("%Y-%m-%d")
 
     properties = {
         "标题": {
