@@ -283,5 +283,320 @@
     "url": "https://openai.com/index/ten-advances-in-mathematics",
     "title": "Ten advances in mathematics and theoretical computer science",
     "date": "2026-08-01"
+  },
+  {
+    "url": "https://deepmind.google/blog/diffusiongemma-4x-faster-text-generation/",
+    "title": "DiffusionGemma: 4x faster text generation",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://deepmind.google/blog/investing-in-multi-agent-ai-safety-research/",
+    "title": "Investing in multi-agent AI safety research",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://deepmind.google/blog/fluid-natural-voice-translation-with-gemini-35-live-translate/",
+    "title": "Fluid, natural voice translation with Gemini 3.5 Live Translate",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://deepmind.google/blog/introducing-gemma-4-12b-a-unified-encoder-free-multimodal-model/",
+    "title": "Introducing Gemma 4 12B: a unified, encoder-free multimodal model",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://deepmind.google/blog/powering-the-future-of-robotics-in-europe/",
+    "title": "Powering the future of robotics in Europe",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://deepmind.google/blog/measuring-the-impact-of-learning-with-ai-in-sierra-leone-and-beyond/",
+    "title": "Measuring the impact of learning with AI in Sierra Leone and beyond",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://deepmind.google/blog/were-launching-the-google-deepmind-accelerator-program-in-asia-pacific-to-tackle-environmental-risks/",
+    "title": "We’re launching the Google DeepMind Accelerator program in Asia Pacific to tackle environmental risks",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-back-to-school-2026/",
+    "title": "Best in Class: Stream PC Games and Study on the Same Laptop With GeForce NOW",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/build-ai-with-nvidia-jetson/",
+    "title": "Powerful Compute So Compact, It’s Clutch — Build AI Anywhere With NVIDIA Jetson",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/open-secure-ai-alliance/",
+    "title": "Industry Leaders Unite in Open Secure AI Alliance for AI Safety and Security",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/vera-cpu-eda/",
+    "title": "NVIDIA Harnesses Vera CPU to Speed Up Design of Next-Generation CPUs and GPUs",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/ai-summit-korea-partners-and-nvidia/",
+    "title": "At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-path-of-exile-allflame/",
+    "title": "GeForce NOW Sets Sail With ‘Path of Exile: Curse of the Allflame’ Joining the Cloud",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/naval-postgraduate-school-dgx-ai-supercomputer/",
+    "title": "NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/medical-physics-simulation-open-source/",
+    "title": "NVIDIA Open Sources First GPU-Accelerated Medical Physics Simulation Framework",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/wistron-manufacturing-texas/",
+    "title": "Built in Fort Worth: Wistron Opens Advanced Manufacturing Plant to Produce NVIDIA AI Systems",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/vera-rubin/",
+    "title": "NVIDIA Vera Rubin Driving Performance Per Watt, Lowest Token Cost for Partners Worldwide",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/nvidia-spectrum-six-arrives-in-gigascale-ai-factories/",
+    "title": "Built for Vera Rubin, NVIDIA Spectrum-6 Arrives in Gigascale AI Factories",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/nvidia-and-partners-build-in-america-for-america/",
+    "title": "NVIDIA and Partners Build in America, for America",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/siggraph-news-2026/",
+    "title": "At SIGGRAPH, NVIDIA Advances Graphics and Simulation With Agentic and Physical AI",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/bristol-myers-squibb-building-life-science-industrys-most-advanced-ai-factory-on-nvidia-vera-rubin/",
+    "title": "Bristol Myers Squibb Building Life Science Industry’s Most Advanced AI Factory on NVIDIA Vera Rubin",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/nvidia-vera-rubin-post-training-intelligence-per-dollar/",
+    "title": "NVIDIA Vera Rubin Maximizes Intelligence per Dollar for Post-Training Workloads — a Key Metric for Agentic AI",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/geforce-now-thursday-onimusha-coming/",
+    "title": "Sharpen the Sword, Skip the Downloads — ‘Onimusha: Way of the Sword’ Is Coming to GeForce NOW",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/jetson-thor-robotics-edge-ai-agent/",
+    "title": "NVIDIA Introduces New Jetson Thor Computers to Advance Mainstream Robotics and Edge AI",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/japan-ecosystem-2026/",
+    "title": "NVIDIA and Japan Bring Full-Stack AI and Robotics to Every Industry",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/real-world-voiceeq",
+    "title": "Introducing Real World VoiceEQ: Measuring the human quality of voice AI",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/torch-attention-profile",
+    "title": "Profiling in PyTorch (Part 3): Attention is all you profile",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/native-speed-vllm-transformers-backend",
+    "title": "Native-speed vLLM transformers modeling backend",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio",
+    "title": "From Hugging Face to Amazon SageMaker Studio in one click",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/microsoft/foundry-managed-compute",
+    "title": "Hugging Face Models on Foundry Managed Compute",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/skypilot-hf-storage",
+    "title": "Run AI workloads on any cloud, store on Hugging Face: zero-egress storage with SkyPilot",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/lerobot-release-v060",
+    "title": "LeRobot v0.6.0: Imagine, Evaluate, Improve",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/Photoroom/prx-part4-data",
+    "title": "PRX Part 4: Our Data Strategy",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://huggingface.co/blog/revamped-kernels",
+    "title": "🤗 Kernels: Major Updates",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/press/blender-5-2-lts-release/",
+    "title": "Blender 5.2 LTS Release",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/events/blender-at-siggraph-2026/",
+    "title": "Blender at SIGGRAPH 2026",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/events/blender-in-annecy-2026-recap/",
+    "title": "Blender in Annecy 2026 Recap",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/events/blender-in-annecy-2026/",
+    "title": "Blender in Annecy 2026",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/news/introducing-the-blender-roadmap/",
+    "title": "Introducing the Blender Roadmap",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/news/upcoming-blender-development-fund-and-ai-policies/",
+    "title": "Upcoming Blender Development Fund and AI Policies",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/archive/anthropic-joins-the-blender-development-fund-as-corporate-patron/",
+    "title": "Anthropic joins the Blender Development Fund as Corporate Patron",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/development/blender-lab-activity-report-q1-2026/",
+    "title": "Blender Lab Activity Report – Q1 2026",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.blender.org/press/blender-5-1-release/",
+    "title": "Blender 5.1 Release",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/learning/julys-epic-learning-content-animation-mobile-game-development-and-more",
+    "title": "<p>July’s Epic learning content: Animation, mobile game development, and more</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/developer-interviews/halo-campaign-evolved-brings-the-legendary-franchise-into-a-new-era-with-ue5",
+    "title": "<p><em>Halo: Campaign Evolved</em> brings the legendary franchise into a new era with UE5</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/events/south-east-asia-dev-days",
+    "title": "<p>South East Asia Dev Days | Unreal Engine</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/news/the-fab-summer-mega-sale-is-now-on",
+    "title": "<p>The Fab Summer Mega Sale is now on!</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/learning/junes-epic-learning-content-metahumans-mesh-terrain-and-more",
+    "title": "<p>June’s Epic learning content: MetaHumans, Mesh Terrain, and more</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/spotlights/shining-isle-productions-goes-all-in-on-unreal-engine-for-the-wingfeather-saga",
+    "title": "<p>Shining Isle Productions goes all-in on Unreal Engine for <em>The Wingfeather Saga</em></p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/news/unreal-engine-5-8-is-now-available",
+    "title": "<p>Unreal Engine 5.8 is now available</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/developer-interviews/lords-of-the-fallen-ii-takes-the-dark-fantasy-action-rpg-sequel-to-new-heights-with-ue5",
+    "title": "<p><em>Lords of the Fallen II</em> takes the dark fantasy action RPG sequel to new heights with UE5</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/news/the-road-to-ue-6",
+    "title": "<p>The road to Unreal Engine 6</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.unrealengine.com/news/state-of-unreal-2026-top-news-from-the-show",
+    "title": "<p>State of Unreal 2026: Top news from the show</p>",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/chairs-corner/ensuring-our-future/",
+    "title": "Ensuring our Future",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/news/2026-pioneers-featured-speaker-announced/",
+    "title": "2026 Pioneers Featured Speaker Announced",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/news/call-for-computer-animation-festival-advisory-board-chair/",
+    "title": "Call for Computer Animation Festival Advisory Board Chair",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/news/practitioner-award-committee-chair/",
+    "title": "Practitioner Award Committee Chair",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/news/outstanding-doctoral-dissertation-award-committee-chair/",
+    "title": "Outstanding Doctoral Dissertation Award Committee Chair",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/award-winners/acm-siggraph-announces-2026-award-recipients-and-siggraph-academy-inductees/",
+    "title": "ACM SIGGRAPH Announces 2026 Award Recipients and SIGGRAPH Academy Inductees",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/news/get-to-know-the-2026-acm-siggraph-executive-committee-candidates/",
+    "title": "Get to Know the 2026 ACM SIGGRAPH Executive Committee Candidates",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/news/art-advisory-group-chair/",
+    "title": "Call for Art Advisory Group Chair",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/news/acm-siggraph-pioneers-announce-next-online-panel-13-may-2026/",
+    "title": "ACM SIGGRAPH Pioneers Announce Next Online Panel – 13 May 2026",
+    "date": "2026-08-02"
+  },
+  {
+    "url": "https://www.siggraph.org/chairs-corner/chairs-corner-april-2026/",
+    "title": "Chair’s Corner – April 2026",
+    "date": "2026-08-02"
   }
 ]
