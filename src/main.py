@@ -1,13 +1,13 @@
 from notion_api import create_reading_page
 from ai_service import generate_reading_recommendations
 from content_fetcher import fetch_articles
-from dedup import filter_new_articles, update_history
+from dedup import filter_new_articles, update_history, get_fallback_articles
 
 
 if __name__ == "__main__":
     print("Starting weekly reading bot...")
 
-    articles = fetch_articles()
+    articles = fetch_articles(limit=20)
 
     print("Fetched articles:")
     print(len(articles), "articles")
@@ -19,8 +19,13 @@ if __name__ == "__main__":
     print("Duplicate titles:", stats["duplicate_titles"])
     print("New articles:", stats["new_articles"])
 
+    if len(articles) < 3:
+        needed = 3 - len(articles)
+        print("Insufficient new articles, adding fallback articles:", needed)
+        articles.extend(get_fallback_articles(needed))
+
     if not articles:
-        print("No new articles found.")
+        print("No articles found.")
         exit(0)
 
     recommendations = generate_reading_recommendations(articles)
