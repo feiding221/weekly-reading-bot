@@ -46,9 +46,6 @@ def create_reading_page(data):
         "链接": {
             "url": data.get("url") or None
         },
-        "阅读时间": {
-            "number": parse_reading_time(data.get("reading_time", ""))
-        },
         "分类": {
             "select": {
                 "name": data.get("category", "其他")
@@ -60,16 +57,3 @@ def create_reading_page(data):
         parent={"database_id": NOTION_DATABASE_ID},
         properties=properties
     )
-
-
-def parse_reading_time(value):
-    import re
-
-    if not value:
-        return None
-
-    match = re.search(r"\d+", str(value))
-    if match:
-        return int(match.group())
-
-    return None
