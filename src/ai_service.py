@@ -40,7 +40,6 @@ def generate_reading_recommendations(articles, limit=3):
       "reason": "",
       "source": "",
       "tags": [],
-      "reading_time": 0,
       "url": "",
       "category": ""
     }
