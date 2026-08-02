@@ -7,7 +7,6 @@ from difflib import SequenceMatcher
 HISTORY_FILE = Path("data/seen_articles.json")
 
 
-
 def load_seen_articles():
     if not HISTORY_FILE.exists():
         return []
@@ -18,7 +17,6 @@ def load_seen_articles():
         return []
 
 
-
 def save_seen_articles(articles):
     HISTORY_FILE.parent.mkdir(parents=True, exist_ok=True)
     HISTORY_FILE.write_text(
@@ -27,24 +25,17 @@ def save_seen_articles(articles):
     )
 
 
-
 def title_similarity(title1, title2):
     return SequenceMatcher(None, title1, title2).ratio()
-
 
 
 def filter_new_articles(articles):
     history = load_seen_articles()
 
-    seen_urls = {
-        item.get("url", "")
-        for item in history
-    }
-
+    seen_urls = {item.get("url", "") for item in history}
     new_articles = []
     duplicate_urls = 0
     duplicate_titles = 0
-
     history_titles = [item.get("title", "") for item in history]
 
     for article in articles:
@@ -62,10 +53,8 @@ def filter_new_articles(articles):
                 duplicated = True
                 break
 
-        if duplicated:
-            continue
-
-        new_articles.append(article)
+        if not duplicated:
+            new_articles.append(article)
 
     stats = {
         "duplicate_urls": duplicate_urls,
@@ -75,6 +64,11 @@ def filter_new_articles(articles):
 
     return new_articles, stats
 
+
+def get_fallback_articles(limit=10):
+    """When new articles are insufficient, reuse recent high-value history."""
+    history = load_seen_articles()
+    return history[-limit:]
 
 
 def update_history(articles):
