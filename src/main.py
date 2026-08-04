@@ -19,10 +19,14 @@ if __name__ == "__main__":
     print("Duplicate titles:", stats["duplicate_titles"])
     print("New articles:", stats["new_articles"])
 
+    new_articles = list(articles)
+    fallback_articles = []
+
     if len(articles) < 3:
         needed = 3 - len(articles)
         print("Insufficient new articles, adding fallback articles:", needed)
-        articles.extend(get_fallback_articles(needed))
+        fallback_articles = get_fallback_articles(needed)
+        articles.extend(fallback_articles)
 
     if not articles:
         print("No articles found.")
@@ -40,7 +44,8 @@ if __name__ == "__main__":
         created_count += 1
         print("Created Notion page:", result["id"])
 
-    update_history(articles)
+    # Only save real new articles. Fallback articles are temporary supplements.
+    update_history(new_articles)
 
     print("Notion pages created:", created_count)
-    print("History updated:", len(articles), "articles")
+    print("History updated:", len(new_articles), "articles")
