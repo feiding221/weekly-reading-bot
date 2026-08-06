@@ -7,7 +7,7 @@ notion = Client(auth=NOTION_TOKEN)
 
 def create_reading_page(data):
     beijing_timezone = timezone(timedelta(hours=8))
-    today = datetime.now(beijing_timezone).strftime("%Y-%m-%d")
+    created_time = datetime.now(beijing_timezone).strftime("%Y-%m-%d %H:%M")
 
     properties = {
         "标题": {
@@ -17,7 +17,7 @@ def create_reading_page(data):
         },
         "日期": {
             "date": {
-                "start": today
+                "start": created_time
             }
         },
         "中文导读": {
