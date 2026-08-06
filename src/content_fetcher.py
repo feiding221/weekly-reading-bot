@@ -2,29 +2,26 @@ import feedparser
 
 
 RSS_SOURCES = [
-    # Global AI companies
+    # Global AI official sources
     "https://www.anthropic.com/news/rss.xml",
     "https://deepmind.google/blog/rss.xml",
     "https://openai.com/news/rss.xml",
     "https://blogs.microsoft.com/ai/feed/",
     "https://blogs.nvidia.com/feed/",
+    "https://huggingface.co/blog/feed.xml",
+    "https://github.blog/feed/",
 
-    # China AI and technology ecosystem
-    "https://www.jiqizhixin.com/rss",
-    "https://www.qbitai.com/feed",
-    "https://www.ithome.com/rss/",
+    # China AI official / institutional sources
     "https://developer.aliyun.com/rss",
+    "https://www.paddlepaddle.org.cn/rss",
+    "https://www.hiascend.com/rss",
 
-    # Digital media, game and creative technology
+    # Digital media and creative technology official sources
     "https://blog.adobe.com/en/topics/firefly/rss.xml",
     "https://www.runwayml.com/blog/rss.xml",
     "https://www.blender.org/feed/",
     "https://www.unrealengine.com/en-US/rss",
     "https://www.siggraph.org/feed/",
-
-    # Developer ecosystem
-    "https://huggingface.co/blog/feed.xml",
-    "https://github.blog/feed/",
 ]
 
 
