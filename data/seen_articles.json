@@ -1123,5 +1123,20 @@
     "url": "https://github.blog/security/supply-chain-security/how-we-took-malware-advisories-beyond-npm/",
     "title": "How we took malware advisories beyond npm",
     "date": "2026-08-07"
+  },
+  {
+    "url": "https://openai.com/index/responding-next-frontier-critical-cyber-capabilities",
+    "title": "Responding to the next frontier of critical cyber capabilities",
+    "date": "2026-08-07"
+  },
+  {
+    "url": "https://openai.com/index/hsp-gruppe",
+    "title": "How HSP GRUPPE builds AI capabilities for tax advisory",
+    "date": "2026-08-07"
+  },
+  {
+    "url": "https://huggingface.co/blog/allenai/tutormoments",
+    "title": "TutorMoments: Do AI tutors know when to help and when to hold back?",
+    "date": "2026-08-07"
   }
 ]
