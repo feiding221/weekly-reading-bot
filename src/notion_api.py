@@ -7,7 +7,7 @@ notion = Client(auth=NOTION_TOKEN)
 
 def create_reading_page(data):
     beijing_timezone = timezone(timedelta(hours=8))
-    created_time = datetime.now(beijing_timezone).strftime("%Y-%m-%d %H:%M")
+    created_time = datetime.now(beijing_timezone).isoformat(timespec="minutes")
 
     properties = {
         "标题": {
