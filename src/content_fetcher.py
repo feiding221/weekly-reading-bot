@@ -8,19 +8,21 @@ RSS_SOURCES = [
     "https://openai.com/news/rss.xml",
     "https://blogs.microsoft.com/ai/feed/",
     "https://blogs.nvidia.com/feed/",
+    "https://developer.nvidia.com/blog/feed/",
     "https://huggingface.co/blog/feed.xml",
     "https://github.blog/feed/",
+    "https://ai.meta.com/blog/rss/",
+    "https://machinelearning.apple.com/rss.xml",
+    "https://research.google/blog/rss/",
 
-    # China AI official / institutional sources
-    "https://developer.aliyun.com/rss",
-    "https://www.paddlepaddle.org.cn/rss",
-    "https://www.hiascend.com/rss",
+    # AI research and technology ecosystem
+    "https://blog.adobe.com/en/topics/adobe-firefly/rss.xml",
 
-    # Digital media and creative technology official sources
-    "https://blog.adobe.com/en/topics/firefly/rss.xml",
+    # Digital media, 3D, game and creative technology sources
     "https://www.runwayml.com/blog/rss.xml",
     "https://www.blender.org/feed/",
     "https://www.unrealengine.com/en-US/rss",
+    "https://blog.unity.com/feed",
     "https://www.siggraph.org/feed/",
 ]
 
