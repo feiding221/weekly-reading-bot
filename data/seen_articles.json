@@ -1138,5 +1138,360 @@
     "url": "https://huggingface.co/blog/allenai/tutormoments",
     "title": "TutorMoments: Do AI tutors know when to help and when to hold back?",
     "date": "2026-08-07"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/firebird-ai-factory-armenia-blackwell-rubin-dsx/",
+    "title": "Firebird Launches CIS Region’s Largest AI Factory in Armenia",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/beyond-vlas-how-world-action-models-reshape-robot-manipulation/",
+    "title": "Beyond VLAs: How World Action Models Reshape Robot Manipulation",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/generate-trajectories-reasoning-traces-and-auto-labels-with-nvidia-alpamayo-2-super/",
+    "title": "Generate Trajectories, Reasoning Traces, and Auto-Labels with NVIDIA Alpamayo 2 Super",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/how-to-run-isolated-tenant-kubernetes-clusters-on-shared-gpu-infrastructure/",
+    "title": "How to Run Isolated Tenant Kubernetes Clusters on Shared GPU Infrastructure",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-vera-storage-benchmarks-faster-encryption-compression-integrity-checking-and-recovery-for-ai-native-storage/",
+    "title": "NVIDIA Vera Storage Benchmarks: Faster Encryption, Compression, Integrity Checking, and Recovery for AI-Native Storage",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/co-designing-ai-model-attention-for-fast-interactive-long-context-inference/",
+    "title": "Co-Designing AI Model Attention for Fast, Interactive Long-Context Inference",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-video-codec-sdk-13-1-zero-copy-transcode-av1-b-frames-and-frame-accurate-seek/",
+    "title": "NVIDIA Video Codec SDK 13.1: Zero-Copy Transcode, AV1 B-Frames, and Frame-Accurate Seek",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/run-high-performance-core-math-at-scale-with-nvidia-nvmath-python/",
+    "title": "Run High-Performance Core Math at Scale with NVIDIA nvmath-python",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/four-ways-to-deploy-more-secure-ai-agents/",
+    "title": "Four Ways to Deploy More Secure AI Agents",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-exemplar-cloud-lessons-for-unlocking-full-performance-on-ai-infrastructure/",
+    "title": "NVIDIA Exemplar Cloud: Lessons for Unlocking Full Performance on AI Infrastructure",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/how-to-self-host-a-validated-ai-coding-assistant-with-nvidia-nemo-guardrails/",
+    "title": "How to Self-Host a Validated AI Coding Assistant with NVIDIA NeMo Guardrails",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/developing-healthcare-robotics-with-gpu-native-medical-physics-simulation/",
+    "title": "Developing Healthcare Robotics with GPU-Native Medical Physics Simulation",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-ising-enables-fully-automated-quantum-computer-calibration-with-enhanced-in-context-learning/",
+    "title": "NVIDIA Ising Enables Fully Automated Quantum Computer Calibration with Enhanced In-Context Learning",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/six-agent-harness-capabilities-for-higher-model-performance/",
+    "title": "Six Agent Harness Capabilities for Higher Model Performance",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-nemotron-3-ultra-leads-open-models-on-accuracy-and-efficiency-in-agentic-rtl-coding/",
+    "title": "NVIDIA Nemotron 3 Ultra Leads Open Models on Accuracy and Efficiency in Agentic RTL Coding",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/advancing-semiconductor-innovation-across-materials-engineering-and-manufacturing/",
+    "title": "Advancing Semiconductor Innovation Across Materials Engineering and Manufacturing",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/modelexpress-distributing-model-artifacts-at-the-speed-of-light/",
+    "title": "ModelExpress: Distributing Model Artifacts at the Speed of Light",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/debugging-ray-tracing-applications-using-nvidia-optix-toolkit/",
+    "title": "Debugging Ray Tracing Applications Using NVIDIA OptiX Toolkit",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/start-customizing-nvidia-nemotron-3-nano-with-prime-intellect-lab-in-minutes/",
+    "title": "Start Customizing NVIDIA Nemotron 3 Nano with Prime Intellect Lab in Minutes",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/make-long-running-nvidia-tensorrt-engine-builds-observable-and-cancelable-in-python-or-c/",
+    "title": "Make Long-Running NVIDIA TensorRT Engine Builds Observable and Cancelable in Python or C++",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/setting-a-world-record-for-moe-pre-training-on-nvidia-gb300-nvl72/",
+    "title": "Setting a World Record for MoE Pre-Training on NVIDIA GB300 NVL72",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/scaling-categorical-flow-maps",
+    "title": "Scaling Categorical Flow Maps",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/diffusion-autoregressive-performance",
+    "title": "Beyond Next-Token Prediction: A Performance Characterization of Diffusion versus Autoregressive Language Models",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/arbitrage-efficient-reasoning",
+    "title": "Arbitrage: Efficient Reasoning via Advantage-Aware Speculation",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/locking-pretrained-weights",
+    "title": "Locking Pretrained Weights via Deep Low-Rank Residual Distillation",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/deepambigqa-multihop-questions",
+    "title": "DeepAmbigQA: Ambiguous Multi-hop Questions for Benchmarking LLM Answer Completeness",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/taming-outlier-tokens",
+    "title": "Taming Outlier Tokens in Diffusion Transformers",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/alignment-multimodal-llms",
+    "title": "Understanding Alignment in Multimodal LLMs: A Comprehensive Study",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/umap-knn-graph-sensemaking",
+    "title": "Dimensionality Reduction Meets Network Science: Sensemaking on UMAP’s kNN Graph",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/momo-motion-mode-manipulation",
+    "title": "MoMo: Dial Motion Mode in Robot Manipulation with Spatiotemporal Action Tokenization",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://machinelearning.apple.com/research/audio-synthesis-diffusion-transformers",
+    "title": "Memory Efficient Audio Synthesis with Decoupled Temporal Depth Diffusion Transformers",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/science-one-framework-a-verifiable-autonomous-research-framework-via-chain-of-evidence/",
+    "title": "Science One Framework: A verifiable autonomous research framework via Chain-of-Evidence",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/symptomai-towards-a-conversational-ai-agent-for-everyday-symptom-assessment/",
+    "title": "SymptomAI: Towards a conversational AI agent for everyday symptom assessment",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/towards-a-quantum-computer-that-learns-from-its-errors/",
+    "title": "Towards a quantum computer that learns from its errors",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/towards-demystifying-the-creativity-of-diffusion-models/",
+    "title": "Towards demystifying the creativity of diffusion models",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/sensorfm-towards-a-general-intelligence-and-interface-for-wearable-health-data/",
+    "title": "SensorFM: Towards a general intelligence and interface for wearable health data",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/the-power-of-collaboration-how-we-can-reduce-traffic-congestion/",
+    "title": "The power of collaboration: How we can reduce traffic congestion",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/expanding-our-heat-resilience-data-to-50-global-cities/",
+    "title": "Expanding our Heat Resilience data to 50+ global cities",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/introducing-tabfm-a-zero-shot-foundation-model-for-tabular-data/",
+    "title": "Introducing TabFM: A zero-shot foundation model for tabular data",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/accelerating-gemini-nano-models-on-pixel-with-frozen-multi-token-prediction/",
+    "title": "Accelerating Gemini Nano models on Pixel with frozen Multi-Token Prediction",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/optimizing-cloud-economics-with-linear-elastic-caching/",
+    "title": "Optimizing cloud economics with linear elastic caching",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/thinking-to-recall-how-reasoning-unlocks-parametric-knowledge-in-llms/",
+    "title": "Thinking to recall: How reasoning unlocks parametric knowledge in LLMs",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/from-pixels-to-planning-earth-ai-for-nature-restoration/",
+    "title": "From pixels to planning: Earth AI for nature restoration",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/research-into-how-ai-can-help-users-understand-skin-conditions/",
+    "title": "Research into how AI can help users understand skin conditions",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/a-low-carbon-computing-platform-from-your-retired-phones/",
+    "title": "A low-carbon computing platform from your retired phones",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/new-framework-for-auditing-machine-unlearning/",
+    "title": "New framework for auditing machine unlearning",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/unlocking-dependable-responses-with-gemini-enterprise-agent-platforms-agentic-rag/",
+    "title": "Unlocking dependable responses with Gemini Enterprise Agent Platform’s Agentic RAG",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/towards-passive-heart-health-monitoring-via-smartphone-camera/",
+    "title": "Towards passive heart health monitoring via smartphone camera",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/the-next-chapter-in-flood-resilience-open-sourcing-googles-hydrology-framework/",
+    "title": "The next chapter in flood resilience: Open sourcing Google’s hydrology framework",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/a-new-era-of-innovation-google-research-at-io-2026/",
+    "title": "A New Era of Discovery: Google Research at I/O 2026",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://research.google/blog/private-analytics-via-zero-trust-aggregation/",
+    "title": "Private analytics via zero-trust aggregation",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/the-3d-as-2d-sample-project,-bunny-blitz,-is-available-now",
+    "title": "The 3D as 2D sample project, Bunny Blitz, is available now",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/games-made-with-unity-july-2026-releases",
+    "title": "Games made with Unity: July 2026 in review",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/mobile-game-webshop-business-case",
+    "title": "Why go D2C now: The mobile game webshop business case",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/meet-the-unity-cli",
+    "title": "Meet the Unity CLI: manage Unity from your terminal",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/games-made-with-unity-june-2026-releases",
+    "title": "Games made with Unity: June 2026 in review",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/inside-google-s-first-xr-hackathon",
+    "title": "Building for XREAL AURA: Inside Google's First Android XR Hackathon",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/d7-vs-d28-iap-roas-campaigns",
+    "title": "D7 or D28 IAP ROAS campaigns? The answer is both",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/solutions-engineers-guide-interactive-product-demos-unity-studio",
+    "title": "A day in the life of a solutions engineer building interactive product demos — without waiting on complex development workflows",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/digital-twin-building-machine-information-system",
+    "title": "From digital twins to industrial AI: Building the machine information system",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/playrix-township-roas-optimization-vector",
+    "title": "How Playrix is growing Township with Unity Ads’ D28 IAP ROAS optimizer",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/interactive-3d-training-unity-studio-without-simulation-teams",
+    "title": "A day in the life of a training designer building interactive 3D — without waiting on specialized simulation teams",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/mcp-servers-game-development",
+    "title": "MCP servers in game development explained",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/hp-anyware-is-being-sunset-a-practical-guide-for-postproduction-teams",
+    "title": "HP Anyware is being sunset: A practical guide for postproduction teams",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/47-tab-problem",
+    "title": "The 47-tab problem: How Unity devs find answers mid-build",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/mattel163-phase-10-vector-roas",
+    "title": "How Mattel163 unlocks scale with Unity Vector",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/layering-gaming-audiences-to-unlock-programmatic-ad-performance",
+    "title": "We activated gaming audiences as an audience layer. Here’s what changed.",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/unity-ai-3d-object-generator",
+    "title": "Unity's AI tools in beta: Create props with the 3D Object Generator",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/unity-ai-ui-generator",
+    "title": "Unity AI Open Beta: Building a user interface with the UI Generator",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/unity-for-humanity-2026-winner-announcement",
+    "title": "Unity for Humanity 2026 Winner Announcement",
+    "date": "2026-08-08"
+  },
+  {
+    "url": "https://unity.com/blog/attain-partnership-measuring-mobile-gaming-sales-outcomes",
+    "title": "Turning purchase data into outcomes in mobile gaming: Unity and Attain’s partnership",
+    "date": "2026-08-08"
   }
 ]
