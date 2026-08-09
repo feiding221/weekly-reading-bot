@@ -1,7 +1,8 @@
 import feedparser
 
 
-RSS_SOURCES = [
+# Global AI and digital media sources
+GLOBAL_RSS_SOURCES = [
     # Global AI official sources
     "https://www.anthropic.com/news/rss.xml",
     "https://deepmind.google/blog/rss.xml",
@@ -15,10 +16,10 @@ RSS_SOURCES = [
     "https://machinelearning.apple.com/rss.xml",
     "https://research.google/blog/rss/",
 
-    # AI research and technology ecosystem
+    # AI research and creative technology
     "https://blog.adobe.com/en/topics/adobe-firefly/rss.xml",
 
-    # Digital media, 3D, game and creative technology sources
+    # Digital media, 3D, game and creative technology
     "https://www.runwayml.com/blog/rss.xml",
     "https://www.blender.org/feed/",
     "https://www.unrealengine.com/en-US/rss",
@@ -27,10 +28,16 @@ RSS_SOURCES = [
 ]
 
 
-def fetch_articles(limit=10):
+# China AI sources
+# Reserved for China AI Reading pipeline
+CHINA_RSS_SOURCES = [
+]
+
+
+def fetch_articles_from_sources(sources, limit=10):
     articles = []
 
-    for url in RSS_SOURCES:
+    for url in sources:
         try:
             feed = feedparser.parse(url)
 
@@ -46,3 +53,17 @@ def fetch_articles(limit=10):
             print("RSS fetch failed:", url, e)
 
     return articles
+
+
+def fetch_global_articles(limit=10):
+    return fetch_articles_from_sources(
+        GLOBAL_RSS_SOURCES,
+        limit
+    )
+
+
+def fetch_china_articles(limit=10):
+    return fetch_articles_from_sources(
+        CHINA_RSS_SOURCES,
+        limit
+    )
