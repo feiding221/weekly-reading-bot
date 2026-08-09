@@ -67,3 +67,10 @@ def fetch_china_articles(limit=10):
         CHINA_RSS_SOURCES,
         limit
     )
+
+
+# Backward compatibility for existing Global Reading pipeline
+# main.py currently uses fetch_articles().
+# Keep this wrapper until the main workflow is migrated to dual pipelines.
+def fetch_articles(limit=10):
+    return fetch_global_articles(limit)
