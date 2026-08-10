@@ -1493,5 +1493,60 @@
     "url": "https://unity.com/blog/attain-partnership-measuring-mobile-gaming-sales-outcomes",
     "title": "Turning purchase data into outcomes in mobile gaming: Unity and Attain’s partnership",
     "date": "2026-08-08"
+  },
+  {
+    "url": "https://openai.com/index/responsible-ai-infrastructure-texas",
+    "title": "OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://openai.com/index/model-ml",
+    "title": "Model ML completes finance work more efficiently with GPT-5.6 Sol",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://openai.com/index/building-an-ai-native-finance-function",
+    "title": "What building an AI-native finance function taught me",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows",
+    "title": "Expanding Daybreak as the Cyber Defense Window Narrows",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://openai.com/index/putting-frontier-cyber-models-in-more-trusted-hands",
+    "title": "Putting frontier cyber models in more trusted hands",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://openai.com/index/premium-seats-chatgpt-business",
+    "title": "Premium seats are coming to ChatGPT Business",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/run-local-agentic-ai-workflows-with-metas-muse-glimmer-on-nvidia/",
+    "title": "Run Local Agentic AI Workflows with Meta’s Muse Glimmer on NVIDIA",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents",
+    "title": "Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://huggingface.co/blog/MultiverseComputingCAI/efficient-knowledge-distillation",
+    "title": "Making Knowledge Distillation Cheap Enough to Run at Scale",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://huggingface.co/blog/muse-glimmer",
+    "title": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+    "date": "2026-08-10"
+  },
+  {
+    "url": "https://github.blog/engineering/using-the-github-copilot-sdk-for-java/",
+    "title": "Using the GitHub Copilot SDK for Java",
+    "date": "2026-08-10"
   }
 ]
