@@ -18,7 +18,11 @@ def run_china_pipeline():
 
     recommendations = generate_china_ai_recommendations(articles)
 
+    print("China recommendations:")
+    print(len(recommendations), "recommendations")
+
     for item in recommendations:
+        print("Creating Notion page:", item.get("title", "Untitled"))
         create_reading_page(item, database_id=CHINA_NOTION_DATABASE_ID)
 
     print("China AI pipeline completed.")
