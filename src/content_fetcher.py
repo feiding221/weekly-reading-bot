@@ -29,8 +29,15 @@ GLOBAL_RSS_SOURCES = [
 
 
 # China AI sources
-# Reserved for China AI Reading pipeline
+# Used only by China AI Reading pipeline
 CHINA_RSS_SOURCES = [
+    # China AI research organizations
+    "https://www.baai.ac.cn/blog/rss.xml",
+    "https://www.paddlepaddle.org.cn/rss.xml",
+
+    # China technology companies
+    "https://www.alibabagroup.com/en/news/feed",
+    "https://www.bytedance.com/en/news/feed",
 ]
 
 
