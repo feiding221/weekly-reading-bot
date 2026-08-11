@@ -1,5 +1,5 @@
 from notion_api import create_reading_page
-from ai_service import generate_reading_recommendations
+from ai_service import generate_china_ai_recommendations
 from content_fetcher import fetch_china_articles
 
 
@@ -15,7 +15,7 @@ def run_china_pipeline():
         print("No China AI articles found.")
         return
 
-    recommendations = generate_reading_recommendations(articles)
+    recommendations = generate_china_ai_recommendations(articles)
 
     for item in recommendations:
         create_reading_page(item)
