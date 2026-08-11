@@ -1,11 +1,11 @@
 from notion_client import Client
-from config import NOTION_TOKEN, NOTION_DATABASE_ID
+from config import NOTION_TOKEN, GLOBAL_NOTION_DATABASE_ID, CHINA_NOTION_DATABASE_ID
 from datetime import datetime, timezone, timedelta
 
 notion = Client(auth=NOTION_TOKEN)
 
 
-def create_reading_page(data):
+def create_reading_page(data, database_id=None):
     beijing_timezone = timezone(timedelta(hours=8))
     created_time = datetime.now(beijing_timezone).isoformat(timespec="minutes")
 
@@ -53,7 +53,10 @@ def create_reading_page(data):
         }
     }
 
+    if database_id is None:
+        database_id = GLOBAL_NOTION_DATABASE_ID
+
     return notion.pages.create(
-        parent={"database_id": NOTION_DATABASE_ID},
+        parent={"database_id": database_id},
         properties=properties
     )
