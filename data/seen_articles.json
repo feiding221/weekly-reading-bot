@@ -1558,5 +1558,70 @@
     "url": "https://openai.com/index/virgin-atlantic/chatgpt-work",
     "title": "Virgin Atlantic sharpens customer journeys with ChatGPT Work",
     "date": "2026-08-11"
+  },
+  {
+    "url": "https://openai.com/index/testing-ads-in-chatgpt",
+    "title": "Testing ads in ChatGPT",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://openai.com/index/daybreak-models-are-now-available-on-aws",
+    "title": "Daybreak models are now available on AWS",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/nvidia-ai-factory-compute/",
+    "title": "NVIDIA AI Factory Compute Is Becoming an Investable Asset Class",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/800-vdc-power-architecture-ai-factory/",
+    "title": "Why Scaling AI Compute Performance Requires a New Power Architecture",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/local-ai-open-source-models-agents-nemotron/",
+    "title": "NVIDIA and Local AI Community Fuel Open Source Models and Intelligent Agents",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/",
+    "title": "NVIDIA Nemotron 3.5 Lightning and NeMo Switchyard Deliver Faster, Smarter, More Efficient Agentic AI",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-jetpack-7-2-1-adds-agentic-video-skills-and-t3000-emulation/",
+    "title": "NVIDIA JetPack 7.2.1 Adds Agentic Video Skills and T3000 Emulation",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-nemotron-3-5-lightning-delivers-fast-accurate-specialized-task-execution-for-long-running-agents/",
+    "title": "NVIDIA Nemotron 3.5 Lightning Delivers Fast, Accurate Specialized Task Execution for Long-Running Agents",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/route-ai-agent-workloads-across-models-with-nvidia-nemo-switchyard/",
+    "title": "Route AI Agent Workloads Across Models with NVIDIA NeMo Switchyard",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://huggingface.co/blog/ibm-research/altk-evolve-sldd",
+    "title": "Thinking of ACE? We Can Do It with Fewer Tokens",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://github.blog/developer-skills/career-growth/from-coder-to-orchestrator-how-agents-shift-the-role-of-a-developer/",
+    "title": "From coder to orchestrator: How agents shift the role of a developer",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://research.google/blog/advancing-amie-towards-expert-level-audio-visual-clinical-consultations/",
+    "title": "Advancing AMIE towards expert-level audio-visual clinical consultations",
+    "date": "2026-08-12"
+  },
+  {
+    "url": "https://unity.com/blog/5-tips-for-using-github-copilot-with-unity",
+    "title": "5 tips for using GitHub Copilot with Unity",
+    "date": "2026-08-12"
   }
 ]
