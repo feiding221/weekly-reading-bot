@@ -26,11 +26,16 @@ def run_global_pipeline():
         articles.extend(get_fallback_articles(needed))
 
     if not articles:
+        print("No global articles available for recommendation.")
         return
 
     recommendations = generate_reading_recommendations(articles)
 
+    print("Global recommendations:")
+    print(len(recommendations), "recommendations")
+
     for item in recommendations:
+        print("Creating Notion page:", item.get("title", "Untitled"))
         create_reading_page(item)
 
     update_history(new_articles)
