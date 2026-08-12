@@ -1,7 +1,6 @@
-from notion_api import create_reading_page
+from notion_api import create_reading_page, CHINA_NOTION_DATA_SOURCE_ID
 from ai_service import generate_china_ai_recommendations
 from content_fetcher import fetch_china_articles
-from config import CHINA_NOTION_DATABASE_ID
 
 
 def run_china_pipeline():
@@ -23,6 +22,6 @@ def run_china_pipeline():
 
     for item in recommendations:
         print("Creating Notion page:", item.get("title", "Untitled"))
-        create_reading_page(item, database_id=CHINA_NOTION_DATABASE_ID)
+        create_reading_page(item, data_source_id=CHINA_NOTION_DATA_SOURCE_ID)
 
     print("China AI pipeline completed.")
