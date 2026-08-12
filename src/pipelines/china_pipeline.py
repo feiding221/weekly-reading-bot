@@ -1,7 +1,43 @@
+from urllib.parse import urlparse
+
 from notion_api import create_reading_page, CHINA_NOTION_DATA_SOURCE_ID
 from ai_service import generate_china_ai_recommendations
 from content_fetcher import fetch_china_articles
 from dedup import CHINA_HISTORY_FILE, filter_new_articles, update_history
+
+
+def _source_key(item):
+    """Use the article URL domain as the stable source identifier."""
+    url = item.get("url", "")
+    hostname = urlparse(url).netloc.lower()
+    return hostname.removeprefix("www.") or item.get("source", "unknown").strip().lower()
+
+
+def _select_diverse_recommendations(recommendations, limit=3):
+    """Prefer one recommendation per source, then fill remaining slots if needed."""
+    selected = []
+    used_sources = set()
+
+    # First pass: maximize source diversity.
+    for item in recommendations:
+        source = _source_key(item)
+        if source in used_sources:
+            continue
+        selected.append(item)
+        used_sources.add(source)
+        if len(selected) >= limit:
+            return selected
+
+    # Fallback: if fewer unique sources are available, keep the highest-ranked
+    # remaining recommendations so the pipeline can still fill its normal count.
+    for item in recommendations:
+        if item in selected:
+            continue
+        selected.append(item)
+        if len(selected) >= limit:
+            break
+
+    return selected
 
 
 def run_china_pipeline():
@@ -31,10 +67,14 @@ def run_china_pipeline():
         print("China AI pipeline completed.")
         return
 
-    recommendations = generate_china_ai_recommendations(new_articles)
+    # Ask the model for a larger candidate pool so source diversity can be
+    # enforced deterministically after ranking.
+    candidates = generate_china_ai_recommendations(new_articles, limit=6)
+    recommendations = _select_diverse_recommendations(candidates, limit=3)
 
     print("China recommendations:")
     print(len(recommendations), "recommendations")
+    print("China recommendation sources:", [_source_key(item) for item in recommendations])
 
     if not recommendations:
         print("No China recommendations generated. Skipping Notion write.")
