@@ -41,7 +41,7 @@ def generate_reading_recommendations(articles, limit=3):
 
 
 def generate_china_ai_recommendations(articles, limit=3):
-    prompt = """
+    prompt = f"""
 你负责 China AI Reading 专栏内容筛选。
 
 目标用户：中国数字媒体技术本科生。
@@ -60,13 +60,14 @@ def generate_china_ai_recommendations(articles, limit=3):
 2. 是否对数字媒体技术学生学习、项目实践或职业规划有价值。
 3. 优先官方技术博客、开发者平台、企业案例。
 4. 降低纯新闻、营销宣传、无技术细节内容权重。
+5. 优先选择不同来源的文章，避免推荐结果过度集中于同一个媒体。
 
-不要为了数量推荐低价值文章。
+不要为了数量推荐低价值文章，但如果候选池中存在多个高价值来源，应尽量覆盖不同来源。
 
 输出JSON：
-{
+{{
   "recommendations": [
-    {
+    {{
       "title": "",
       "summary": "",
       "reason": "",
@@ -74,10 +75,10 @@ def generate_china_ai_recommendations(articles, limit=3):
       "tags": [],
       "url": "",
       "category": ""
-    }
+    }}
   ]
-}
+}}
 
-必须尽量返回3篇高价值文章。
+请先按综合价值排序，并尽量返回 {limit} 篇高质量候选，供后续程序进行来源多样性筛选。
 """
     return _generate_recommendations_with_prompt(articles, prompt, limit)
