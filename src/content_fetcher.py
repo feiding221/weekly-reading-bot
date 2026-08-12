@@ -31,16 +31,14 @@ GLOBAL_RSS_SOURCES = [
 # China AI sources
 # Used only by China AI Reading pipeline
 CHINA_RSS_SOURCES = [
-    # China AI research and developer communities
+    # China AI research and professional media
     "https://hub.baai.ac.cn/rss",
     "https://www.jiqizhixin.com/rss",
     "https://www.infoq.cn/feed",
-
-    # China technology and AI industry news
     "https://www.qbitai.com/feed",
+
+    # China technology and AI industry
     "https://www.36kr.com/feed",
-    "https://developer.aliyun.com/group/ai/",
-    "https://developer.volcengine.com/",
 ]
 
 
