@@ -4,22 +4,24 @@ from datetime import datetime
 from difflib import SequenceMatcher
 
 
-HISTORY_FILE = Path("data/seen_articles.json")
+GLOBAL_HISTORY_FILE = Path("data/seen_articles.json")
+CHINA_HISTORY_FILE = Path("data/seen_china_articles.json")
+TITLE_SIMILARITY_THRESHOLD = 0.8
 
 
-def load_seen_articles():
-    if not HISTORY_FILE.exists():
+def load_seen_articles(history_file=GLOBAL_HISTORY_FILE):
+    if not history_file.exists():
         return []
 
     try:
-        return json.loads(HISTORY_FILE.read_text(encoding="utf-8"))
+        return json.loads(history_file.read_text(encoding="utf-8"))
     except Exception:
         return []
 
 
-def save_seen_articles(articles):
-    HISTORY_FILE.parent.mkdir(parents=True, exist_ok=True)
-    HISTORY_FILE.write_text(
+def save_seen_articles(articles, history_file=GLOBAL_HISTORY_FILE):
+    history_file.parent.mkdir(parents=True, exist_ok=True)
+    history_file.write_text(
         json.dumps(articles, ensure_ascii=False, indent=2),
         encoding="utf-8"
     )
@@ -29,8 +31,8 @@ def title_similarity(title1, title2):
     return SequenceMatcher(None, title1, title2).ratio()
 
 
-def filter_new_articles(articles):
-    history = load_seen_articles()
+def filter_new_articles(articles, history_file=GLOBAL_HISTORY_FILE):
+    history = load_seen_articles(history_file)
 
     seen_urls = {item.get("url", "") for item in history}
     new_articles = []
@@ -48,7 +50,11 @@ def filter_new_articles(articles):
 
         duplicated = False
         for old_title in history_titles:
-            if title and old_title and title_similarity(title, old_title) >= 0.8:
+            if (
+                title
+                and old_title
+                and title_similarity(title, old_title) >= TITLE_SIMILARITY_THRESHOLD
+            ):
                 duplicate_titles += 1
                 duplicated = True
                 break
@@ -65,14 +71,14 @@ def filter_new_articles(articles):
     return new_articles, stats
 
 
-def get_fallback_articles(limit=10):
+def get_fallback_articles(limit=10, history_file=GLOBAL_HISTORY_FILE):
     """When new articles are insufficient, reuse recent high-value history."""
-    history = load_seen_articles()
+    history = load_seen_articles(history_file)
     return history[-limit:]
 
 
-def update_history(articles):
-    history = load_seen_articles()
+def update_history(articles, history_file=GLOBAL_HISTORY_FILE):
+    history = load_seen_articles(history_file)
     today = datetime.now().strftime("%Y-%m-%d")
 
     for article in articles:
@@ -82,4 +88,4 @@ def update_history(articles):
             "date": today
         })
 
-    save_seen_articles(history)
+    save_seen_articles(history, history_file)
