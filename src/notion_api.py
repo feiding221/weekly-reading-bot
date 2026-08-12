@@ -4,8 +4,13 @@ from datetime import datetime, timezone, timedelta
 
 notion = Client(auth=NOTION_TOKEN)
 
+# Notion's newer database model exposes a data source behind each database.
+# Keep the data-source IDs separate from the database/page IDs used elsewhere.
+GLOBAL_NOTION_DATA_SOURCE_ID = ""
+CHINA_NOTION_DATA_SOURCE_ID = "c01c3ec7-64b6-4d44-876a-6f711df99332"
 
-def create_reading_page(data, database_id=None):
+
+def create_reading_page(data, database_id=None, data_source_id=None):
     beijing_timezone = timezone(timedelta(hours=8))
     created_time = datetime.now(beijing_timezone).isoformat(timespec="minutes")
 
@@ -35,7 +40,7 @@ def create_reading_page(data, database_id=None):
         },
         "来源": {
             "select": {
-                "name": data.get("source", "未知来源")
+                "name": data.get("source", "其他")
             }
         },
         "标签": {
@@ -48,15 +53,20 @@ def create_reading_page(data, database_id=None):
         },
         "分类": {
             "select": {
-                "name": data.get("category", "其他")
+                "name": data.get("category", "行业动态")
             }
         }
     }
 
-    if database_id is None:
-        database_id = GLOBAL_NOTION_DATABASE_ID
+    # Global still uses the existing database target for now.
+    if data_source_id:
+        parent = {"data_source_id": data_source_id}
+    else:
+        if database_id is None:
+            database_id = GLOBAL_NOTION_DATABASE_ID
+        parent = {"database_id": database_id}
 
     return notion.pages.create(
-        parent={"database_id": database_id},
+        parent=parent,
         properties=properties
     )
