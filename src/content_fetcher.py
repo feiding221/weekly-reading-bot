@@ -42,14 +42,19 @@ CHINA_RSS_SOURCES = [
 ]
 
 
-def fetch_articles_from_sources(sources, limit=10):
+def fetch_articles_from_sources(sources, limit=10, show_source_details=False):
     articles = []
+    source_stats = []
 
     for url in sources:
         try:
             feed = feedparser.parse(url)
             source_name = feed.feed.get("title", "").strip() or url
-            print(f"RSS source: {source_name} | {url} | {len(feed.entries)} articles")
+            entry_count = len(feed.entries)
+            source_stats.append((source_name, entry_count))
+
+            if show_source_details:
+                print(f"  {source_name}: {entry_count}")
 
             for entry in feed.entries[:limit]:
                 articles.append({
@@ -60,27 +65,40 @@ def fetch_articles_from_sources(sources, limit=10):
                 })
 
         except Exception as e:
-            print("RSS fetch failed:", url, e)
+            source_stats.append((url, 0))
+            if show_source_details:
+                print(f"  {url}: 0 (fetch failed: {e})")
 
+    return articles, source_stats
+
+
+def _fetch_articles(sources, limit, label):
+    print(f"{label} RSS source summary:")
+    articles, source_stats = fetch_articles_from_sources(
+        sources,
+        limit=limit,
+        show_source_details=True
+    )
     return articles
 
 
 def fetch_global_articles(limit=10):
-    return fetch_articles_from_sources(
+    return _fetch_articles(
         GLOBAL_RSS_SOURCES,
-        limit
+        limit,
+        "Global"
     )
 
 
 def fetch_china_articles(limit=10):
-    return fetch_articles_from_sources(
+    return _fetch_articles(
         CHINA_RSS_SOURCES,
-        limit
+        limit,
+        "China"
     )
 
 
 # Backward compatibility for existing Global Reading pipeline
 # main.py currently uses fetch_articles().
-# Keep this wrapper until the main workflow is migrated to dual pipelines.
 def fetch_articles(limit=10):
     return fetch_global_articles(limit)
