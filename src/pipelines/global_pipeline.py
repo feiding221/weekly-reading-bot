@@ -4,17 +4,6 @@ from content_fetcher import fetch_articles
 from dedup import filter_new_articles, update_history
 
 
-TEST_NEW_GLOBAL_ARTICLE = {
-    "title": "Weekly Reading Global Pipeline Test",
-    "summary": "仅用于验证 Global Reading → Weekly Reading 的完整写入链路。",
-    "reason": "测试 Global Pipeline 是否可以正常生成并写入 Weekly Reading。",
-    "source": "GitHub",
-    "tags": ["Pipeline测试", "Global Reading"],
-    "url": "https://example.com/weekly-reading-global-pipeline-test",
-    "category": "其他",
-}
-
-
 def run_global_pipeline():
     print("\n=== Global Reading Pipeline ===")
 
@@ -31,10 +20,11 @@ def run_global_pipeline():
     print("New articles:", stats["new_articles"])
 
     if not new_articles:
-        print("No new global articles. Running one isolated Global → Weekly Reading test item.")
-        recommendations = [TEST_NEW_GLOBAL_ARTICLE]
-    else:
-        recommendations = generate_reading_recommendations(new_articles)
+        print("No new global articles. Skipping recommendation and Notion write.")
+        print("Global pipeline completed.")
+        return
+
+    recommendations = generate_reading_recommendations(new_articles)
 
     print("Global recommendations:")
     print(len(recommendations), "recommendations")
@@ -48,7 +38,5 @@ def run_global_pipeline():
         print("Creating Notion page:", item.get("title", "Untitled"))
         create_reading_page(item)
 
-    if new_articles:
-        update_history(new_articles)
-
+    update_history(new_articles)
     print("Global pipeline completed.")
