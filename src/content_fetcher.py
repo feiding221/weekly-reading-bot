@@ -48,13 +48,15 @@ def fetch_articles_from_sources(sources, limit=10):
     for url in sources:
         try:
             feed = feedparser.parse(url)
+            source_name = feed.feed.get("title", "").strip() or url
+            print(f"RSS source: {source_name} | {url} | {len(feed.entries)} articles")
 
             for entry in feed.entries[:limit]:
                 articles.append({
                     "title": entry.get("title", ""),
                     "summary": entry.get("summary", ""),
                     "url": entry.get("link", ""),
-                    "source": feed.feed.get("title", url)
+                    "source": source_name
                 })
 
         except Exception as e:
