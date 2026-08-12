@@ -39,6 +39,8 @@ CHINA_RSS_SOURCES = [
     # China technology and AI industry news
     "https://www.qbitai.com/feed",
     "https://www.36kr.com/feed",
+    "https://developer.aliyun.com/group/ai/",
+    "https://developer.volcengine.com/",
 ]
 
 
