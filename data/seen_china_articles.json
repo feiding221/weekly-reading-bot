@@ -38,5 +38,250 @@
     "url": "https://36kr.com/p/3924908647577732?f=rss",
     "title": "西湖机器人公司由西湖大学教授创立，专注具身智能通用大脑",
     "date": "2026-08-12"
+  },
+  {
+    "url": "https://www.infoq.cn/article/Za8vaFWPCM7LtuRfhDmD?utm_source=rss&utm_medium=article",
+    "title": "与运行时无关的 AI 工作流：一种兼顾生产环境稳定性和快速评估迭代的模式",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/9d9Oik3uZpqfjbfElZaq?utm_source=rss&utm_medium=article",
+    "title": "智象未来 (HiDream.ai)算法科学家潘滢炜博士确认出席AICon深圳，将分享“从 Token 预测到状态预测：迈向世界模型的原生全模态之路”",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/KwZX2bLcaHRjuLG95vHI?utm_source=rss&utm_medium=article",
+    "title": "从亚百毫秒级启动到生产级部署，腾讯云为何重构 Agent 沙箱？",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/KEq5kQG53vxPd0bXCY7y?utm_source=rss&utm_medium=article",
+    "title": "Vercel 发布新语言 Zero：代码不是写给人看的，而是写给 AI 的",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/YBCpst8secs3xWqZwWLe?utm_source=rss&utm_medium=article",
+    "title": "别再所有人平分AI算力：顶级模型给资深工程师才省钱，新人刷题式成长已失效",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/hMG80lZUX1kaJWpr58g1?utm_source=rss&utm_medium=article",
+    "title": "面壁智能正式启动IPO：中信证券辅导，端侧模型走向资本市场",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/pKprBfc9MPLZVaNpMQgg?utm_source=rss&utm_medium=article",
+    "title": "SkiaSharp 4 连发多个版本：GPU 渲染提速，WebAssembly 支持升级",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/b1V6WF6iUajJpND8VmCE?utm_source=rss&utm_medium=article",
+    "title": "群青智能联合创始人&CEO 吴哲明博士确认出席AICon深圳，将分享“从真实产线定义智能——工业具身智能的物理 AI 闭环”",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/LDrAypWCIbNuL3XS30PE?utm_source=rss&utm_medium=article",
+    "title": "千条广告“抢”一个 30 秒位置，平台如何实时做出选择？",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/4pXftxRySRf5FB5hJK9o?utm_source=rss&utm_medium=article",
+    "title": "DoorDash使用Envoy和Valkey构建了1.5M RPS的代理缓存，可用性达99.99999%",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/9sy33cA91Fp8z5mlOvNu?utm_source=rss&utm_medium=article",
+    "title": "小扎万字长文炮轰闭源：蒸馏无罪，Meta 正式重回开源模型路线",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/FbaA82tNKyG25aHVejHU?utm_source=rss&utm_medium=article",
+    "title": "Cloudflare发现了hyper HTTP/1实现中的竞态条件问题并进行了修复",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/rcSr7bVQFB9Uskadg74T?utm_source=rss&utm_medium=article",
+    "title": "机器人大脑之争进入深水区：为什么物理世界需要从头设计模型",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/pqWqcoySQ5HdKz96vSo3?utm_source=rss&utm_medium=article",
+    "title": "把 AI 视频的钱花在刀刃上，不是每一刀上",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/uHECxUzeafk9Nbzpxi25?utm_source=rss&utm_medium=article",
+    "title": "代理技能 Ponytail 在贡献者提出质疑后修正了自身的基准测试结果",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/2NsA9FT1uhjmdRrwzOo3?utm_source=rss&utm_medium=article",
+    "title": "让 Agent 读懂业务世界：Snowflake Cortex Agents 的本体驱动推理实践 ｜ 技术实践",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/fe63sMOT127Pu7QpHP3a?utm_source=rss&utm_medium=article",
+    "title": "为 Agentic Enterprise 实现 ROI：企业高管需要关注的 3 个关键因素 ｜ 技术趋势",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/gkzDEyCF5U4DtKAa1Eee?utm_source=rss&utm_medium=article",
+    "title": "OpenAI 代理群利用 Artifactory 零日漏洞逃离沙箱并入侵 Hugging Face",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/kSqvyjVIwTvXsumYgRtf?utm_source=rss&utm_medium=article",
+    "title": "腾讯WorkBuddy升级多端同步，支持手机远程授权和停止电脑端任务",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.infoq.cn/article/MfAOXCR6RxQG515xW7HH?utm_source=rss&utm_medium=article",
+    "title": "eslint-rspack-plugin 5.0.0 以纯 ESM 包的形式发布，与 Rstack 生态系统保持一致",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/471624.html",
+    "title": "360纳米大片流水线携手《知识就是力量》发布“知力·纳米”科普科幻AI大片创作平台",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/471451.html",
+    "title": "引领智能手机迈入具身交互时代 全球首款机器人手机荣耀Robot Phone发布",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/471254.html",
+    "title": "《置身谷内》！Jeff Dean上顶会自曝离职现场：被1500人围堵",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/471162.html",
+    "title": "Anthropic CEO整天神神叨叨，投资人受不了了",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/471049.html",
+    "title": "国产具身智能创全球新纪录！以30%成本跑赢 Figure AI 45%效率，聪明的具身大脑成关键",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/471030.html",
+    "title": "紫东太初推出GMC核心集剪枝方法，少80%Token仍满血保真多模态能力",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/470901.html",
+    "title": "2026中国科创投资夏季峰会暨陕西科创产业生态大会圆满落幕",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/470874.html",
+    "title": "人形之外，擎羽把“身体”变成具身智能的新变量",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://www.qbitai.com/2026/08/470805.html",
+    "title": "刚刚，Manus恢复独立运营",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3937399009459335?f=rss",
+    "title": "最前线｜XTransfer邓国标：中小外贸企业正从新兴产业配套环节寻找机会",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3937335101996164?f=rss",
+    "title": "AI究竟能帮游戏做什么？我们和阿里云、TapTap制造聊了聊 | ChinaJoy2026现场局",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3937262359100805?f=rss",
+    "title": "36氪首发 | 顺为、望千联手押注，这家公司要把全球最小丝杠量产千万根",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3937187153132680?f=rss",
+    "title": "8点1氪丨星巴克中国否认为降成本取消14薪；DeepSeek V4 Pro正式版上线；“阿里最年轻P10”林俊旸创业，新公司估值20亿美元",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3936487630650758?f=rss",
+    "title": "最前线｜3999元起，影石发布X6：全景相机开始把更多创作交给AI",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3936291241901444?f=rss",
+    "title": "氪星晚报｜英特尔增发200亿美元前据悉曾寻求美政府批准；前7个月我国期货市场累计成交额同比增长38.43%；连续两个月突破100万辆，我国汽车出口延续强劲增长态势",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3936379078409606?f=rss",
+    "title": "Seedance 2.5测评｜ 七维实测，AI视频从片段到叙事，到底进步了多少？",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3936372691696770?f=rss",
+    "title": "除了甄子丹，《影之刃零》新PV还曝光了这些......",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3936164243914115?f=rss",
+    "title": "25岁，2亿估值，Funloom AI用AI原生RPG重构游戏创作流程",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/p/3935994997407107?f=rss",
+    "title": "36氪首发 | 腾讯、百度背景团队做具身数据基础设施，再获顺为等数亿元融资",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937421576256900?f=rss",
+    "title": "速卖通全面加码“海外托管”，上半年新入驻超2万商家",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937410249440384?f=rss",
+    "title": "美团骑手“等灯停表”功能已在北京试点路测",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937402948091013?f=rss",
+    "title": "A股三大指数午间休盘集体上涨，CRO概念走强",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937393976950145?f=rss",
+    "title": "弘毅文化联手AIROBO成立合资公司，进军机器人平台运营",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937389410778240?f=rss",
+    "title": "小马智行在佛山新设科技公司，含智能机器人研发业务",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937375680822401?f=rss",
+    "title": "重大资产重组，股价4天翻倍，蓝盾光电回应",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937370074004617?f=rss",
+    "title": "千问开放平台上线菜鸟智能体",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937356154911880?f=rss",
+    "title": "Alo关联公司注册资本200万美元",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937351064452228?f=rss",
+    "title": "谷歌AI竞赛告急，共同创办人布林出手整顿DeepMind团队",
+    "date": "2026-08-13"
+  },
+  {
+    "url": "https://36kr.com/newsflashes/3937350175112576?f=rss",
+    "title": "Anthropic据悉洽购AI初创公司Decart，交易估值约60亿美元",
+    "date": "2026-08-13"
   }
 ]
