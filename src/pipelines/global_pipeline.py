@@ -24,13 +24,24 @@ def run_global_pipeline():
         print("Global pipeline completed.")
         return
 
-    recommendations = generate_reading_recommendations(new_articles)
+    # Ask the model for a larger candidate pool so the final selection is more
+    # robust when some newly fetched articles are low-value.
+    candidates = generate_reading_recommendations(new_articles, limit=6)
+
+    print("Global recommendation candidates:")
+    print(len(candidates), "candidates")
+
+    recommendations = candidates[:3]
 
     print("Global recommendations:")
     print(len(recommendations), "recommendations")
 
     if not recommendations:
-        print("No global recommendations generated. Skipping Notion write.")
+        # These articles have already been evaluated, so record them as seen
+        # even when the model finds no suitable recommendation. Otherwise the
+        # same articles would be treated as new again on the next run.
+        update_history(new_articles)
+        print("No global recommendations generated. Updated article history and skipped Notion write.")
         print("Global pipeline completed.")
         return
 
