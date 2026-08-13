@@ -41,6 +41,12 @@ def generate_reading_recommendations(articles, limit=3):
 
 请尽量从候选文章中选择 3 篇高价值内容。只有当候选文章整体都明显不符合上述标准时，才返回空数组。
 
+标题要求：
+- Global AI Reading 的“title”必须输出自然、准确、简洁的中文标题，不要直接保留英文原题。
+- 专有名词、模型名、产品名、公司名可以保留英文或官方名称，例如 OpenAI、Gemini、Qwen、NVIDIA。
+- 不要逐词生硬直译；应根据正文含义生成适合中文阅读的标题。
+- 标题不得添加原文中没有的事实、数字或结论。
+
 摘要 summary 必须基于文章正文进行中文总结，不要只是改写标题。
 推荐理由 reason 必须说明这篇文章对数字媒体技术本科生具体有什么价值。
 
@@ -49,7 +55,7 @@ JSON格式必须为：
 {
   "recommendations": [
     {
-      "title": "文章标题",
+      "title": "中文标题",
       "summary": "基于正文的中文摘要",
       "reason": "具体推荐理由",
       "source": "来源名称",
