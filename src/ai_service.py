@@ -35,7 +35,23 @@ def generate_reading_recommendations(articles, limit=3):
 4. 产业价值：是否包含真实产品、企业应用或商业案例。
 5. 来源质量：优先官方、一手、专业媒体来源。
 
-输出要求：所有字段中文，严格输出JSON。
+请尽量从候选文章中选择 3 篇高价值内容。只有当候选文章整体都明显不符合上述标准时，才返回空数组。
+
+输出要求：所有字段中文，严格输出JSON，不要输出Markdown或额外文字。
+JSON格式必须为：
+{
+  "recommendations": [
+    {
+      "title": "文章标题",
+      "summary": "中文摘要",
+      "reason": "推荐理由",
+      "source": "来源名称",
+      "tags": ["标签1", "标签2"],
+      "url": "原文URL",
+      "category": "分类"
+    }
+  ]
+}
 """
     return _generate_recommendations_with_prompt(articles, prompt, limit)
 
