@@ -1,4 +1,9 @@
 import feedparser
+import re
+from html import unescape
+from urllib.parse import urljoin
+
+import requests
 
 
 # Global AI and digital media sources
@@ -42,6 +47,46 @@ CHINA_RSS_SOURCES = [
 ]
 
 
+REQUEST_TIMEOUT = 10
+MAX_CONTENT_LENGTH = 8000
+
+
+def _strip_html(value):
+    if not value:
+        return ""
+    text = re.sub(r"<script[\s\S]*?</script>", " ", value, flags=re.I)
+    text = re.sub(r"<style[\s\S]*?</style>", " ", text, flags=re.I)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _extract_article_text(url):
+    """Best-effort text extraction for a single article page.
+
+    This is deliberately optional: RSS collection remains the primary path and
+    a failed page fetch never blocks the pipeline.
+    """
+    if not url:
+        return ""
+
+    try:
+        response = requests.get(
+            url,
+            timeout=REQUEST_TIMEOUT,
+            headers={"User-Agent": "WeeklyReadingBot/1.0"}
+        )
+        response.raise_for_status()
+
+        text = _strip_html(response.text)
+        if not text:
+            return ""
+
+        return text[:MAX_CONTENT_LENGTH]
+    except requests.RequestException:
+        return ""
+
+
 def fetch_articles_from_sources(sources, limit=10):
     articles = []
     source_stats = []
@@ -54,11 +99,14 @@ def fetch_articles_from_sources(sources, limit=10):
             source_stats.append((source_name, entry_count))
 
             for entry in feed.entries[:limit]:
+                summary = entry.get("summary", "")
+                article_url = entry.get("link", "")
                 articles.append({
                     "title": entry.get("title", ""),
-                    "summary": entry.get("summary", ""),
-                    "url": entry.get("link", ""),
-                    "source": source_name
+                    "summary": _strip_html(summary),
+                    "url": article_url,
+                    "source": source_name,
+                    "content": _extract_article_text(article_url)
                 })
 
         except Exception:
@@ -104,6 +152,5 @@ def fetch_china_articles(limit=10):
 
 
 # Backward compatibility for existing Global Reading pipeline
-# main.py currently uses fetch_articles().
 def fetch_articles(limit=10):
     return fetch_global_articles(limit)
