@@ -2,7 +2,7 @@ from urllib.parse import urlparse
 
 from notion_api import create_reading_page, CHINA_NOTION_DATA_SOURCE_ID
 from ai_service import generate_china_ai_recommendations
-from content_fetcher import fetch_china_articles
+from content_fetcher import fetch_china_articles, enrich_articles_with_content
 from dedup import CHINA_HISTORY_FILE, filter_new_articles, update_history
 
 
@@ -66,6 +66,12 @@ def run_china_pipeline():
         print("No new China AI articles. Skipping recommendation and Notion write.")
         print("China AI pipeline completed.")
         return
+
+    # Enrich only newly fetched articles so the model can judge full article
+    # content instead of relying mainly on RSS titles and summaries.
+    enrich_articles_with_content(new_articles)
+    content_count = sum(1 for item in new_articles if item.get("content"))
+    print("China article content:", f"{content_count}/{len(new_articles)} enriched")
 
     # Ask the model for a larger candidate pool so source diversity can be
     # enforced deterministically after ranking.
