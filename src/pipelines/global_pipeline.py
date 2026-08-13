@@ -1,6 +1,6 @@
 from notion_api import create_reading_page
 from ai_service import generate_reading_recommendations
-from content_fetcher import fetch_articles
+from content_fetcher import fetch_articles, enrich_articles_with_content
 from dedup import filter_new_articles, update_history
 
 
@@ -23,6 +23,12 @@ def run_global_pipeline():
         print("No new global articles. Skipping recommendation and Notion write.")
         print("Global pipeline completed.")
         return
+
+    # Enrich only newly fetched articles so the model can judge full article
+    # content instead of relying mainly on RSS titles and summaries.
+    enrich_articles_with_content(new_articles)
+    content_count = sum(1 for item in new_articles if item.get("content"))
+    print("Global article content:", f"{content_count}/{len(new_articles)} enriched")
 
     # Ask the model for a larger candidate pool so the final selection is more
     # robust when some newly fetched articles are low-value.
