@@ -17,6 +17,9 @@ GLOBAL_RSS_SOURCES = [
     "https://machinelearning.apple.com/rss.xml",
     "https://research.google/blog/rss/",
 
+    # AI industry news
+    "https://techcrunch.com/category/artificial-intelligence/feed/",
+
     # AI research and creative technology
     "https://blog.adobe.com/en/topics/adobe-firefly/rss.xml",
 
