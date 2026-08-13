@@ -7,16 +7,13 @@ import requests
 
 # Global AI and digital media sources
 GLOBAL_RSS_SOURCES = [
-    # Global AI official sources
-    "https://www.anthropic.com/news/rss.xml",
+    # AI official sources
     "https://deepmind.google/blog/rss.xml",
     "https://openai.com/news/rss.xml",
-    "https://blogs.microsoft.com/ai/feed/",
     "https://blogs.nvidia.com/feed/",
     "https://developer.nvidia.com/blog/feed/",
     "https://huggingface.co/blog/feed.xml",
     "https://github.blog/feed/",
-    "https://ai.meta.com/blog/rss/",
     "https://machinelearning.apple.com/rss.xml",
     "https://research.google/blog/rss/",
 
@@ -24,7 +21,6 @@ GLOBAL_RSS_SOURCES = [
     "https://blog.adobe.com/en/topics/adobe-firefly/rss.xml",
 
     # Digital media, 3D, game and creative technology
-    "https://www.runwayml.com/blog/rss.xml",
     "https://www.blender.org/feed/",
     "https://www.unrealengine.com/en-US/rss",
     "https://blog.unity.com/feed",
