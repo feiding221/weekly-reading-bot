@@ -1,7 +1,6 @@
 import feedparser
 import re
 from html import unescape
-from urllib.parse import urljoin
 
 import requests
 
@@ -62,11 +61,7 @@ def _strip_html(value):
 
 
 def _extract_article_text(url):
-    """Best-effort text extraction for a single article page.
-
-    This is deliberately optional: RSS collection remains the primary path and
-    a failed page fetch never blocks the pipeline.
-    """
+    """Best-effort text extraction for a single article page."""
     if not url:
         return ""
 
@@ -74,15 +69,11 @@ def _extract_article_text(url):
         response = requests.get(
             url,
             timeout=REQUEST_TIMEOUT,
-            headers={"User-Agent": "WeeklyReadingBot/1.0"}
+            headers={"User-Agent": "Mozilla/5.0 (compatible; WeeklyReadingBot/1.0)"}
         )
         response.raise_for_status()
-
         text = _strip_html(response.text)
-        if not text:
-            return ""
-
-        return text[:MAX_CONTENT_LENGTH]
+        return text[:MAX_CONTENT_LENGTH] if text else ""
     except requests.RequestException:
         return ""
 
@@ -99,20 +90,30 @@ def fetch_articles_from_sources(sources, limit=10):
             source_stats.append((source_name, entry_count))
 
             for entry in feed.entries[:limit]:
-                summary = entry.get("summary", "")
+                summary = _strip_html(entry.get("summary", ""))
                 article_url = entry.get("link", "")
                 articles.append({
                     "title": entry.get("title", ""),
-                    "summary": _strip_html(summary),
+                    "summary": summary,
                     "url": article_url,
                     "source": source_name,
-                    "content": _extract_article_text(article_url)
+                    "content": ""
                 })
 
         except Exception:
             source_stats.append((url, 0))
 
     return articles, source_stats
+
+
+def enrich_articles_with_content(articles, limit=None):
+    """Fetch article pages only for the articles that need deeper analysis."""
+    selected = articles if limit is None else articles[:limit]
+    for article in selected:
+        if article.get("content"):
+            continue
+        article["content"] = _extract_article_text(article.get("url", ""))
+    return articles
 
 
 def _fetch_articles(sources, limit, label):
