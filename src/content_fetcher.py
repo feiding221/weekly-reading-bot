@@ -42,7 +42,7 @@ CHINA_RSS_SOURCES = [
 ]
 
 
-def fetch_articles_from_sources(sources, limit=10, show_source_details=False):
+def fetch_articles_from_sources(sources, limit=10):
     articles = []
     source_stats = []
 
@@ -53,9 +53,6 @@ def fetch_articles_from_sources(sources, limit=10, show_source_details=False):
             entry_count = len(feed.entries)
             source_stats.append((source_name, entry_count))
 
-            if show_source_details:
-                print(f"  {source_name}: {entry_count}")
-
             for entry in feed.entries[:limit]:
                 articles.append({
                     "title": entry.get("title", ""),
@@ -64,21 +61,29 @@ def fetch_articles_from_sources(sources, limit=10, show_source_details=False):
                     "source": source_name
                 })
 
-        except Exception as e:
+        except Exception:
             source_stats.append((url, 0))
-            if show_source_details:
-                print(f"  {url}: 0 (fetch failed: {e})")
 
     return articles, source_stats
 
 
 def _fetch_articles(sources, limit, label):
-    print(f"{label} RSS source summary:")
-    articles, source_stats = fetch_articles_from_sources(
-        sources,
-        limit=limit,
-        show_source_details=True
+    articles, source_stats = fetch_articles_from_sources(sources, limit=limit)
+
+    active_sources = sum(1 for _, count in source_stats if count > 0)
+    failed_sources = len(source_stats) - active_sources
+    total_entries = sum(count for _, count in source_stats)
+
+    print(
+        f"{label} RSS: {len(sources)} sources, "
+        f"{active_sources} active, {failed_sources} failed, "
+        f"{total_entries} entries, {len(articles)} fetched"
     )
+
+    if failed_sources:
+        failed = [name for name, count in source_stats if count == 0]
+        print(f"{label} RSS failed sources: {', '.join(failed)}")
+
     return articles
 
 
