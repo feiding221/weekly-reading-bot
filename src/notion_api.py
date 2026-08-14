@@ -1,6 +1,7 @@
 from notion_client import Client
 from config import NOTION_TOKEN, GLOBAL_NOTION_DATABASE_ID, CHINA_NOTION_DATABASE_ID
 from datetime import datetime, timezone, timedelta
+import time
 
 notion = Client(auth=NOTION_TOKEN)
 
@@ -58,7 +59,6 @@ def create_reading_page(data, database_id=None, data_source_id=None):
         }
     }
 
-    # Global still uses the existing database target for now.
     if data_source_id:
         parent = {"data_source_id": data_source_id}
     else:
@@ -66,7 +66,17 @@ def create_reading_page(data, database_id=None, data_source_id=None):
             database_id = GLOBAL_NOTION_DATABASE_ID
         parent = {"database_id": database_id}
 
-    return notion.pages.create(
-        parent=parent,
-        properties=properties
-    )
+    last_error = None
+    for attempt in range(3):
+        try:
+            return notion.pages.create(
+                parent=parent,
+                properties=properties
+            )
+        except Exception as exc:
+            last_error = exc
+            if attempt == 2:
+                raise
+            time.sleep(2 ** attempt)
+
+    raise last_error
