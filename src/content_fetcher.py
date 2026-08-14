@@ -7,7 +7,7 @@ import requests
 
 # Global AI and digital media sources
 GLOBAL_RSS_SOURCES = [
-    # AI official sources
+    # AI / model / developer ecosystem
     "https://deepmind.google/blog/rss.xml",
     "https://openai.com/news/rss.xml",
     "https://blogs.nvidia.com/feed/",
@@ -17,17 +17,17 @@ GLOBAL_RSS_SOURCES = [
     "https://machinelearning.apple.com/rss.xml",
     "https://research.google/blog/rss/",
 
-    # AI industry news
+    # AI industry / creative AI
     "https://techcrunch.com/category/artificial-intelligence/feed/",
-
-    # AI research and creative technology
     "https://blog.adobe.com/en/topics/adobe-firefly/rss.xml",
+    "https://replicate.com/blog/rss",
 
-    # Digital media, 3D, game and creative technology
+    # 3D / CG / real-time / digital media
     "https://www.blender.org/feed/",
     "https://www.unrealengine.com/en-US/rss",
     "https://blog.unity.com/feed",
     "https://www.siggraph.org/feed/",
+    "https://www.cgchannel.com/feed/",
 ]
 
 
