@@ -67,7 +67,7 @@ def create_reading_page(data, database_id=None, data_source_id=None):
         parent = {"database_id": database_id}
 
     last_error = None
-    for attempt in range(3):
+    for attempt in range(2):
         try:
             return notion.pages.create(
                 parent=parent,
@@ -75,8 +75,8 @@ def create_reading_page(data, database_id=None, data_source_id=None):
             )
         except Exception as exc:
             last_error = exc
-            if attempt == 2:
+            if attempt == 1:
                 raise
-            time.sleep(2 ** attempt)
+            time.sleep(2)
 
     raise last_error
