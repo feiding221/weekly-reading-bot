@@ -7,6 +7,81 @@ client = OpenAI(
     base_url="https://api.deepseek.com"
 )
 
+ALLOWED_CATEGORIES = {
+    "AI与模型",
+    "AIGC与生成式AI",
+    "AI Agent",
+    "3D与CG",
+    "VFX与影视",
+    "游戏与实时技术",
+    "数字媒体工具",
+    "开发与开源",
+    "AI产业与应用",
+    "研究与前沿",
+}
+
+ALLOWED_TAGS = {
+    "LLM",
+    "多模态",
+    "AI Agent",
+    "生成式AI",
+    "AI模型",
+    "AI图像",
+    "AI视频",
+    "AI音频",
+    "AI 3D",
+    "AI创作",
+    "Blender",
+    "Houdini",
+    "Nuke",
+    "Unreal Engine",
+    "Unity",
+    "Rendering",
+    "VFX",
+    "Motion Graphics",
+    "Virtual Production",
+    "Open Source",
+    "GitHub",
+    "API / SDK",
+    "MCP",
+    "AI开发",
+    "NVIDIA",
+    "Hugging Face",
+    "OpenAI",
+    "Google",
+    "研究前沿",
+}
+
+
+def _sanitize_recommendations(recommendations, limit):
+    sanitized = []
+    for item in recommendations:
+        if not isinstance(item, dict):
+            continue
+
+        category = item.get("category")
+        if category not in ALLOWED_CATEGORIES:
+            category = "研究与前沿"
+
+        raw_tags = item.get("tags", [])
+        if not isinstance(raw_tags, list):
+            raw_tags = []
+        tags = []
+        for tag in raw_tags:
+            if tag in ALLOWED_TAGS and tag not in tags:
+                tags.append(tag)
+            if len(tags) == 3:
+                break
+
+        item["category"] = category
+        item["tags"] = tags
+        sanitized.append(item)
+
+        if len(sanitized) == limit:
+            break
+
+    return sanitized
+
 
 def _generate_recommendations_with_prompt(articles, system_prompt, limit=3):
     response = client.chat.completions.create(
@@ -19,7 +94,7 @@ def _generate_recommendations_with_prompt(articles, system_prompt, limit=3):
     )
 
     data = json.loads(response.choices[0].message.content)
-    return data.get("recommendations", [])[:limit]
+    return _sanitize_recommendations(data.get("recommendations", []), limit)
 
 
 def generate_reading_recommendations(articles, limit=3):
@@ -40,6 +115,29 @@ def generate_reading_recommendations(articles, limit=3):
 6. 信息密度：正文是否提供具体技术、产品、方法、数据或实践信息。
 
 请尽量从候选文章中选择 3 篇高价值内容。只有当候选文章整体都明显不符合上述标准时，才返回空数组。
+
+【分类规则】
+category 必须且只能从下面 10 个固定分类中选择 1 个，不得创造新分类、修改名称或输出其他语言版本：
+1. AI与模型
+2. AIGC与生成式AI
+3. AI Agent
+4. 3D与CG
+5. VFX与影视
+6. 游戏与实时技术
+7. 数字媒体工具
+8. 开发与开源
+9. AI产业与应用
+10. 研究与前沿
+
+分类表示文章的“主领域”，只能选择一个。不要把 AI、科技、趋势、编程、商业、科研等宽泛词作为分类。
+
+【标签规则】
+tags 只能从下面 30 个固定标签中选择，最多 3 个，可以少于 3 个，不能为了凑数添加标签，不得创造新标签：
+LLM、多模态、AI Agent、生成式AI、AI模型、AI图像、AI视频、AI音频、AI 3D、AI创作、Blender、Houdini、Nuke、Unreal Engine、Unity、Rendering、VFX、Motion Graphics、Virtual Production、Open Source、GitHub、API / SDK、MCP、AI开发、NVIDIA、Hugging Face、OpenAI、Google、研究前沿。
+
+标签表示文章涉及的具体模型、软件、平台或技术主题。不要使用 AI、科技、商业、科研、趋势、编程、行业动态等宽泛词作为标签。
+
+分类和标签不要表达同一个概念。例如分类为“VFX与影视”时，不要因为分类本身而添加“VFX”；分类为“AI与模型”时，不要添加“生成式AI”作为泛化重复标签，除非文章确实涉及该具体技术主题。
 
 标题要求：
 - Global AI Reading 的“title”必须输出自然、准确、简洁的中文标题，不要直接保留英文原题。
@@ -98,6 +196,18 @@ def generate_china_ai_recommendations(articles, limit=3):
 
 不要为了数量推荐低价值文章，但如果候选池中存在多个高价值来源，应尽量覆盖不同来源。
 
+【分类规则】
+category 必须且只能从下面 10 个固定分类中选择 1 个：
+AI与模型、AIGC与生成式AI、AI Agent、3D与CG、VFX与影视、游戏与实时技术、数字媒体工具、开发与开源、AI产业与应用、研究与前沿。
+不得创造新分类。分类表示文章的主领域，只能选择一个。
+
+【标签规则】
+tags 只能从下面 30 个固定标签中选择，最多 3 个，可以少于 3 个，不得创造新标签：
+LLM、多模态、AI Agent、生成式AI、AI模型、AI图像、AI视频、AI音频、AI 3D、AI创作、Blender、Houdini、Nuke、Unreal Engine、Unity、Rendering、VFX、Motion Graphics、Virtual Production、Open Source、GitHub、API / SDK、MCP、AI开发、NVIDIA、Hugging Face、OpenAI、Google、研究前沿。
+不要使用 AI、科技、商业、科研、趋势、编程等宽泛词作为标签，也不要为了凑数量添加标签。
+
+分类和标签不要重复表达同一个概念。
+
 summary 必须基于正文内容进行中文概括，不要只翻译或改写标题。
 reason 必须结合正文说明其对数字媒体技术本科生的具体价值。
 
@@ -113,7 +223,7 @@ reason 必须结合正文说明其对数字媒体技术本科生的具体价值�
       "url": "",
       "category": ""
     }}
-  ]
+  ]}
 }}
 
 请先按综合价值排序，并尽量返回 {limit} 篇高质量候选，供后续程序进行来源多样性筛选。
