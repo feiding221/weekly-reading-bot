@@ -105,7 +105,8 @@ def _sanitize_recommendations(recommendations, limit):
 
 def _generate_recommendations_with_prompt(articles, system_prompt, limit=3):
     response = client.chat.completions.create(
-        model="deepseek-chat",
+        model="deepseek-v4-flash",
+        thinking={"type": "disabled"},
         response_format={"type": "json_object"},
         messages=[
             {"role": "system", "content": system_prompt},
