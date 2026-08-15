@@ -168,7 +168,7 @@ JSON格式必须为：
 
 
 def generate_china_ai_recommendations(articles, limit=3):
-    prompt = f"""
+    prompt = """
 你负责 China AI Reading 专栏内容筛选。
 
 输入中的每篇文章可能包含：标题、RSS摘要、网页正文 content。
@@ -212,9 +212,9 @@ summary 必须基于正文内容进行中文概括，不要只翻译或改写标
 reason 必须结合正文说明其对数字媒体技术本科生的具体价值。
 
 输出JSON：
-{{
+{
   "recommendations": [
-    {{
+    {
       "title": "",
       "summary": "",
       "reason": "",
@@ -222,10 +222,10 @@ reason 必须结合正文说明其对数字媒体技术本科生的具体价值�
       "tags": [],
       "url": "",
       "category": ""
-    }}
-  ]}
-}}
+    }
+  ]
+}
 
-请先按综合价值排序，并尽量返回 {limit} 篇高质量候选，供后续程序进行来源多样性筛选。
-"""
+请先按综合价值排序，并尽量返回 LIMIT_VALUE 篇高质量候选，供后续程序进行来源多样性筛选。
+""".replace("LIMIT_VALUE", str(limit))
     return _generate_recommendations_with_prompt(articles, prompt, limit)
