@@ -19,7 +19,6 @@ GLOBAL_RSS_SOURCES = [
 
     # AI industry / creative AI
     "https://techcrunch.com/category/artificial-intelligence/feed/",
-    "https://blog.adobe.com/en/topics/adobe-firefly/rss.xml",
     "https://replicate.com/blog/rss",
 
     # 3D / CG / real-time / digital media
