@@ -52,6 +52,31 @@ ALLOWED_TAGS = {
     "研究前沿",
 }
 
+# The model evaluates these dimensions; Python calculates the final score so
+# the weighting is stable across runs and is not left entirely to the model.
+VALUE_WEIGHTS = {
+    "professional_fit": 30,
+    "technical_value": 25,
+    "career_value": 15,
+    "information_density": 15,
+    "source_quality": 10,
+    "trend_value": 5,
+}
+MIN_VALUE_SCORE = 60
+
+
+def _calculate_value_score(item):
+    """Calculate a deterministic 0-100 value score from model sub-scores."""
+    total = 0.0
+    for field, weight in VALUE_WEIGHTS.items():
+        try:
+            score = float(item.get(field, 0))
+        except (TypeError, ValueError):
+            score = 0.0
+        score = max(0.0, min(100.0, score))
+        total += score * weight / 100.0
+    return round(total, 1)
+
 
 def _sanitize_recommendations(recommendations, limit):
     sanitized = []
@@ -75,12 +100,19 @@ def _sanitize_recommendations(recommendations, limit):
 
         item["category"] = category
         item["tags"] = tags
+        item["value_score"] = _calculate_value_score(item)
+
+        # Do not let malformed/missing score fields silently turn an article
+        # into a high-value recommendation. The final threshold is applied
+        # after the deterministic Python calculation.
+        if item["value_score"] < MIN_VALUE_SCORE:
+            continue
+
         sanitized.append(item)
 
-        if len(sanitized) == limit:
-            break
-
-    return sanitized
+    # Rank by the deterministic final score before applying the output limit.
+    sanitized.sort(key=lambda item: item.get("value_score", 0), reverse=True)
+    return sanitized[:limit]
 
 
 def _generate_recommendations_with_prompt(articles, system_prompt, limit=3):
@@ -106,15 +138,20 @@ def generate_reading_recommendations(articles, limit=3):
 
 目标：生成少量、高质量、长期值得保存的阅读资料，而不是新闻搬运。
 
-筛选标准：
-1. 专业匹配度：AI、计算机、AIGC、图像视频生成、3D、游戏、XR等方向。
-2. 职业价值：是否帮助本科生了解技能、工具、行业机会。
-3. 技术趋势：是否代表重要技术发展方向。
-4. 产业价值：是否包含真实产品、企业应用或商业案例。
-5. 来源质量：优先官方、一手、专业媒体来源。
-6. 信息密度：正文是否提供具体技术、产品、方法、数据或实践信息。
+请对每篇候选文章分别进行以下 6 项 0-100 分评价：
+1. professional_fit：与数字媒体技术专业方向的匹配度。
+2. technical_value：技术深度、技术含量和实践价值。
+3. career_value：对学习、项目实践、技能选择或职业发展的帮助。
+4. information_density：正文是否包含具体技术、产品、方法、数据、案例或实践细节。
+5. source_quality：来源是否可靠、一手、专业，官方技术来源优先。
+6. trend_value：是否代表值得关注的技术趋势或行业变化。
 
-请尽量从候选文章中选择 3 篇高价值内容。只有当候选文章整体都明显不符合上述标准时，才返回空数组。
+综合分不是由你自由决定，而是由程序按以下固定权重计算：
+professional_fit 30% + technical_value 25% + career_value 15% + information_density 15% + source_quality 10% + trend_value 5%。
+程序会按综合分排序，并淘汰综合分低于 60 分的文章。
+
+请从候选池中先按综合价值排序，尽量返回最多 6 篇候选，让程序从中选择最终推荐内容。
+不要为了凑数量提高低价值文章的分数。如果候选文章确实不足，可以少返回；但不要因为只有少数候选就随意返回空数组。
 
 【分类规则】
 category 必须且只能从下面 10 个固定分类中选择 1 个，不得创造新分类、修改名称或输出其他语言版本：
@@ -159,7 +196,13 @@ JSON格式必须为：
       "source": "来源名称",
       "tags": ["标签1", "标签2"],
       "url": "原文URL",
-      "category": "分类"
+      "category": "分类",
+      "professional_fit": 0,
+      "technical_value": 0,
+      "career_value": 0,
+      "information_density": 0,
+      "source_quality": 0,
+      "trend_value": 0
     }
   ]
 }
@@ -186,15 +229,26 @@ def generate_china_ai_recommendations(articles, limit=3):
 - 国产AI开发平台
 - 企业AI应用案例
 
-筛选标准：
+请对每篇候选文章分别进行以下 6 项 0-100 分评价：
+1. professional_fit：与数字媒体技术专业方向的匹配度。
+2. technical_value：技术深度、技术含量和实践价值。
+3. career_value：对学习、项目实践、技能选择或职业发展的帮助。
+4. information_density：正文是否包含具体技术、产品、方法、数据、案例或实践细节。
+5. source_quality：来源是否可靠、一手、专业，官方技术来源优先。
+6. trend_value：是否代表值得关注的技术趋势或行业变化。
+
+综合分由程序按固定权重计算：professional_fit 30% + technical_value 25% + career_value 15% + information_density 15% + source_quality 10% + trend_value 5%。程序会按综合分排序，并淘汰综合分低于 60 分的文章。
+
+请先按综合价值排序，并尽量返回 LIMIT_VALUE 篇高质量候选，供后续程序进行来源多样性筛选。
+不要为了凑数量提高低价值文章的分数。如果候选文章不足，可以少返回；但不要因为候选数量少就随意返回空数组。
+
+重点关注：
 1. 是否体现中国AI产业和技术发展趋势。
 2. 是否对数字媒体技术学生学习、项目实践或职业规划有价值。
 3. 优先官方技术博客、开发者平台、企业案例。
 4. 降低纯新闻、营销宣传、无技术细节内容权重。
 5. 优先选择不同来源的文章，避免推荐结果过度集中于同一个媒体。
 6. 信息密度：优先正文包含具体技术、产品、方法、数据或实践细节的文章。
-
-不要为了数量推荐低价值文章，但如果候选池中存在多个高价值来源，应尽量覆盖不同来源。
 
 【分类规则】
 category 必须且只能从下面 10 个固定分类中选择 1 个：
@@ -221,7 +275,13 @@ reason 必须结合正文说明其对数字媒体技术本科生的具体价值�
       "source": "",
       "tags": [],
       "url": "",
-      "category": ""
+      "category": "",
+      "professional_fit": 0,
+      "technical_value": 0,
+      "career_value": 0,
+      "information_density": 0,
+      "source_quality": 0,
+      "trend_value": 0
     }
   ]
 }
