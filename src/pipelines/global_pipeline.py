@@ -28,10 +28,25 @@ def run_global_pipeline():
     content_count = sum(1 for item in new_articles if item.get("content"))
     print("Global article content:", f"{content_count}/{len(new_articles)} enriched")
 
+    # Ask the model for a larger candidate pool, mirroring the China pipeline.
+    # The model ranks the pool; the pipeline then takes the top 3.
     candidates = generate_reading_recommendations(new_articles, limit=6)
 
     print("Global recommendation candidates:")
     print(len(candidates), "candidates")
+
+    # If the model unexpectedly returns no candidates despite having new,
+    # enriched articles, retry once with the same evidence and an explicit
+    # instruction to rank rather than return an empty result.
+    if not candidates:
+        print("Global AI returned 0 candidates. Retrying once with fallback prompt...")
+        candidates = generate_reading_recommendations(
+            new_articles,
+            limit=6,
+            fallback=True
+        )
+        print("Global fallback candidates:")
+        print(len(candidates), "candidates")
 
     recommendations = candidates[:3]
 
