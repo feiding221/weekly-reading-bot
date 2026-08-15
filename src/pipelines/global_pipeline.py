@@ -36,14 +36,13 @@ def run_global_pipeline():
     print(len(candidates), "candidates")
 
     # If the model unexpectedly returns no candidates despite having new,
-    # enriched articles, retry once with the same evidence and an explicit
-    # instruction to rank rather than return an empty result.
+    # enriched articles, retry once with an explicit fallback prompt.
     if not candidates:
         print("Global AI returned 0 candidates. Retrying once with fallback prompt...")
         candidates = generate_reading_recommendations(
             new_articles,
             limit=6,
-            fallback=True
+            fallback=True,
         )
         print("Global fallback candidates:")
         print(len(candidates), "candidates")
