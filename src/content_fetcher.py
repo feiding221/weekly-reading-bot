@@ -34,7 +34,6 @@ GLOBAL_RSS_SOURCES = [
 # Used only by China AI Reading pipeline
 CHINA_RSS_SOURCES = [
     # China AI research and professional media
-    "https://hub.baai.ac.cn/rss",
     "https://www.jiqizhixin.com/rss",
     "https://www.infoq.cn/feed",
     "https://www.qbitai.com/feed",
