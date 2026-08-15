@@ -24,14 +24,10 @@ def run_global_pipeline():
         print("Global pipeline completed.")
         return
 
-    # Enrich only newly fetched articles so the model can judge full article
-    # content instead of relying mainly on RSS titles and summaries.
     enrich_articles_with_content(new_articles)
     content_count = sum(1 for item in new_articles if item.get("content"))
     print("Global article content:", f"{content_count}/{len(new_articles)} enriched")
 
-    # Ask the model for a larger candidate pool so the final selection is more
-    # robust when some newly fetched articles are low-value.
     candidates = generate_reading_recommendations(new_articles, limit=6)
 
     print("Global recommendation candidates:")
@@ -43,11 +39,7 @@ def run_global_pipeline():
     print(len(recommendations), "recommendations")
 
     if not recommendations:
-        # These articles have already been evaluated, so record them as seen
-        # even when the model finds no suitable recommendation. Otherwise the
-        # same articles would be treated as new again on the next run.
-        update_history(new_articles)
-        print("No global recommendations generated. Updated article history and skipped Notion write.")
+        print("No global recommendations generated. History unchanged so these articles can be evaluated again later.")
         print("Global pipeline completed.")
         return
 
