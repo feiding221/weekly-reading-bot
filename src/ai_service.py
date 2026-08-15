@@ -8,48 +8,15 @@ client = OpenAI(
 )
 
 ALLOWED_CATEGORIES = {
-    "AI与模型",
-    "AIGC与生成式AI",
-    "AI Agent",
-    "3D与CG",
-    "VFX与影视",
-    "游戏与实时技术",
-    "数字媒体工具",
-    "开发与开源",
-    "AI产业与应用",
-    "研究与前沿",
+    "AI与模型", "AIGC与生成式AI", "AI Agent", "3D与CG", "VFX与影视",
+    "游戏与实时技术", "数字媒体工具", "开发与开源", "AI产业与应用", "研究与前沿",
 }
 
 ALLOWED_TAGS = {
-    "LLM",
-    "多模态",
-    "AI Agent",
-    "生成式AI",
-    "AI模型",
-    "AI图像",
-    "AI视频",
-    "AI音频",
-    "AI 3D",
-    "AI创作",
-    "Blender",
-    "Houdini",
-    "Nuke",
-    "Unreal Engine",
-    "Unity",
-    "Rendering",
-    "VFX",
-    "Motion Graphics",
-    "Virtual Production",
-    "Open Source",
-    "GitHub",
-    "API / SDK",
-    "MCP",
-    "AI开发",
-    "NVIDIA",
-    "Hugging Face",
-    "OpenAI",
-    "Google",
-    "研究前沿",
+    "LLM", "多模态", "AI Agent", "生成式AI", "AI模型", "AI图像", "AI视频", "AI音频",
+    "AI 3D", "AI创作", "Blender", "Houdini", "Nuke", "Unreal Engine", "Unity", "Rendering",
+    "VFX", "Motion Graphics", "Virtual Production", "Open Source", "GitHub", "API / SDK",
+    "MCP", "AI开发", "NVIDIA", "Hugging Face", "OpenAI", "Google", "研究前沿",
 }
 
 VALUE_WEIGHTS = {
@@ -87,6 +54,7 @@ def _sanitize_recommendations(recommendations, limit):
         raw_tags = item.get("tags", [])
         if not isinstance(raw_tags, list):
             raw_tags = []
+
         tags = []
         for tag in raw_tags:
             if tag in ALLOWED_TAGS and tag not in tags:
@@ -103,21 +71,18 @@ def _sanitize_recommendations(recommendations, limit):
     return sanitized[:limit]
 
 
-def _generate_recommendations_with_prompt(articles, system_prompt, limit=3):
+def _generate_recommendations_with_prompt(articles, system_prompt, limit=6):
     response = client.chat.completions.create(
         model="deepseek-v4-flash",
         response_format={"type": "json_object"},
         messages=[
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": json.dumps(articles, ensure_ascii=False)}
-        ]
+            {"role": "user", "content": json.dumps(articles, ensure_ascii=False)},
+        ],
     )
 
     data = json.loads(response.choices[0].message.content)
-    recommendations = _sanitize_recommendations(
-        data.get("recommendations", []),
-        limit
-    )
+    recommendations = _sanitize_recommendations(data.get("recommendations", []), limit)
 
     print("AI candidate scores:")
     for item in recommendations:
@@ -131,7 +96,7 @@ def _generate_recommendations_with_prompt(articles, system_prompt, limit=3):
     return recommendations
 
 
-def generate_reading_recommendations(articles, limit=6, fallback=False):
+def _build_global_prompt(fallback=False):
     prompt = """
 你是一个个人知识管理助手，负责为中国数字媒体技术本科生筛选高价值AI与数字媒体行业阅读内容。
 
@@ -151,9 +116,7 @@ def generate_reading_recommendations(articles, limit=6, fallback=False):
 综合分由程序按固定权重计算：professional_fit 30% + technical_value 25% + career_value 15% + information_density 15% + source_quality 10% + trend_value 5%。
 
 请先按综合价值排序，尽量返回最多 6 篇候选。不要为了凑数量提高低价值文章的分数。
-若候选池中存在至少 1 篇与目标读者明确相关、且包含实质信息的文章，就应返回至少 1 篇候选；只有全部候选都明显无关、纯广告或缺乏实质信息时才返回空数组。
-
-本次请求属于兜底重试时，请尤其遵守：不要因为候选数量少而返回空数组；请从现有候选中选出最有价值的文章。
+如果候选池中存在与目标读者明确相关、且包含实质信息的文章，请返回其中最值得保存的候选；不要把“最终推荐数量”理解为必须恰好返回 3 篇。
 
 【分类规则】
 category 必须且只能从下面 10 个固定分类中选择 1 个：
@@ -187,8 +150,16 @@ LLM、多模态、AI Agent、生成式AI、AI模型、AI图像、AI视频、AI�
 }
 """
     if fallback:
-        prompt += "\n这是一次兜底重试。请忽略之前可能过于严格的空结果倾向，优先从现有候选中选出至少 1 篇最值得保存的文章，只要它与目标用户相关且有实质内容即可。"
-    return _generate_recommendations_with_prompt(articles, prompt, limit)
+        prompt += "\n这是一次兜底重试。放宽宁缺毋滥倾向：只要存在与目标用户相关且包含实质信息的文章，就至少返回 1 篇，并按综合价值排序。不要为了追求特别高的质量而返回空数组。"
+    return prompt
+
+
+def generate_reading_recommendations(articles, limit=6, fallback=False):
+    return _generate_recommendations_with_prompt(
+        articles,
+        _build_global_prompt(fallback=fallback),
+        limit,
+    )
 
 
 def generate_china_ai_recommendations(articles, limit=6):
