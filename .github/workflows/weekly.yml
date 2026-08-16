@@ -30,15 +30,14 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
           CHINA_NOTION_DATABASE_ID: ${{ secrets.CHINA_NOTION_DATABASE_ID }}
-        run: python -c "from pipelines.global_pipeline import run_global_pipeline; run_global_pipeline()"
+        run: PYTHONPATH=src python -c "from pipelines.global_pipeline import run_global_pipeline; run_global_pipeline()"
 
-      - name: Save global article history
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/seen_articles.json
-          git diff --cached --quiet || git commit -m "chore: update global article history"
-          git push
+      - name: Upload global article history
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-article-history
+          path: data/seen_articles.json
+          if-no-files-found: error
 
   china:
     runs-on: ubuntu-latest
@@ -61,12 +60,38 @@ jobs:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
           CHINA_NOTION_DATABASE_ID: ${{ secrets.CHINA_NOTION_DATABASE_ID }}
-        run: python -c "from pipelines.china_pipeline import run_china_pipeline; run_china_pipeline()"
+        run: PYTHONPATH=src python -c "from pipelines.china_pipeline import run_china_pipeline; run_china_pipeline()"
 
-      - name: Save China article history
+      - name: Upload China article history
+        uses: actions/upload-artifact@v4
+        with:
+          name: china-article-history
+          path: data/seen_china_articles.json
+          if-no-files-found: error
+
+  save-history:
+    runs-on: ubuntu-latest
+    needs: [global, china]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download global article history
+        uses: actions/download-artifact@v4
+        with:
+          name: global-article-history
+          path: data
+
+      - name: Download China article history
+        uses: actions/download-artifact@v4
+        with:
+          name: china-article-history
+          path: data
+
+      - name: Save article history
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/seen_china_articles.json
-          git diff --cached --quiet || git commit -m "chore: update China article history"
+          git add data/seen_articles.json data/seen_china_articles.json
+          git diff --cached --quiet || git commit -m "chore: update article history"
           git push
