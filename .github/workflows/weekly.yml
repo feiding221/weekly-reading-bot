@@ -9,9 +9,9 @@ permissions:
   contents: write
 
 jobs:
-  global:
+  run-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,69 +24,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run global pipeline
+      - name: Run bot
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
           CHINA_NOTION_DATABASE_ID: ${{ secrets.CHINA_NOTION_DATABASE_ID }}
-        run: PYTHONPATH=src python -c "from pipelines.global_pipeline import run_global_pipeline; run_global_pipeline()"
-
-      - name: Upload global article history
-        uses: actions/upload-artifact@v4
-        with:
-          name: global-article-history
-          path: data/seen_articles.json
-          if-no-files-found: error
-
-  china:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run China pipeline
-        env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-          CHINA_NOTION_DATABASE_ID: ${{ secrets.CHINA_NOTION_DATABASE_ID }}
-        run: PYTHONPATH=src python -c "from pipelines.china_pipeline import run_china_pipeline; run_china_pipeline()"
-
-      - name: Upload China article history
-        uses: actions/upload-artifact@v4
-        with:
-          name: china-article-history
-          path: data/seen_china_articles.json
-          if-no-files-found: error
-
-  save-history:
-    runs-on: ubuntu-latest
-    needs: [global, china]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Download global article history
-        uses: actions/download-artifact@v4
-        with:
-          name: global-article-history
-          path: data
-
-      - name: Download China article history
-        uses: actions/download-artifact@v4
-        with:
-          name: china-article-history
-          path: data
+        run: python src/main.py
 
       - name: Save article history
         run: |
