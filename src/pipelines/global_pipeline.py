@@ -58,17 +58,17 @@ def run_global_pipeline():
         return
 
     # Only articles whose Notion page was actually created are added to history.
-    # Articles that were not recommended, or whose Notion write failed, remain
-    # eligible for evaluation in a later run.
+    # Unrecommended articles and failed Notion writes remain eligible for later runs.
     written_articles = []
     for item in recommendations:
-        print("Creating Notion page:", item.get("title", "Untitled"))
+        title = item.get("title", "Untitled")
+        print("Creating Notion page:", title)
         try:
             create_reading_page(item)
             written_articles.append(item)
-            print("Notion page created successfully:", item.get("title", "Untitled"))
+            print("Notion page created successfully:", title)
         except Exception as exc:
-            print("Failed to create Notion page:", item.get("title", "Untitled"))
+            print("Failed to create Notion page:", title)
             print("Notion error:", exc)
 
     if written_articles:
@@ -77,4 +77,4 @@ def run_global_pipeline():
     else:
         print("No global articles were written to Notion. History unchanged.")
 
-    print("Global pipeline completed.")
+    print("Global AI pipeline completed.")
