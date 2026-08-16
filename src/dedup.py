@@ -59,36 +59,36 @@ def filter_new_articles(articles, history_file=GLOBAL_HISTORY_FILE):
     new_titles = []
     duplicate_urls = 0
     duplicate_titles = 0
+    duplicate_both = 0
 
     for article in articles:
         url = article.get("url", "").strip()
         title = article.get("title", "").strip()
         normalized_url = normalize_url(url)
 
-        # Check both persistent history and articles already accepted in this run.
-        if normalized_url and normalized_url in seen_urls:
-            duplicate_urls += 1
-            continue
+        # URL and title are evaluated independently. An article is blocked only
+        # when both checks identify it as a duplicate.
+        url_duplicate = bool(normalized_url and (
+            normalized_url in seen_urls or normalized_url in new_urls
+        ))
 
-        if normalized_url and normalized_url in new_urls:
-            duplicate_urls += 1
-            continue
-
-        # Check against persistent history and the current batch. This prevents
-        # the same story from being recommended twice when multiple RSS entries
-        # point to the same or nearly identical article.
-        duplicated = False
+        title_duplicate = False
         for old_title in history_titles + new_titles:
             if (
                 title
                 and old_title
                 and title_similarity(title, old_title) >= TITLE_SIMILARITY_THRESHOLD
             ):
-                duplicate_titles += 1
-                duplicated = True
+                title_duplicate = True
                 break
 
-        if duplicated:
+        if url_duplicate:
+            duplicate_urls += 1
+        if title_duplicate:
+            duplicate_titles += 1
+
+        if url_duplicate and title_duplicate:
+            duplicate_both += 1
             continue
 
         new_articles.append(article)
@@ -100,6 +100,7 @@ def filter_new_articles(articles, history_file=GLOBAL_HISTORY_FILE):
     stats = {
         "duplicate_urls": duplicate_urls,
         "duplicate_titles": duplicate_titles,
+        "duplicate_both": duplicate_both,
         "new_articles": len(new_articles)
     }
 
