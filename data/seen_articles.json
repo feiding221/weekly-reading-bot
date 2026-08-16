@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-video-codec-sdk-13-1-zero-copy-transcode-av1-b-frames-and-frame-accurate-seek/",
+    "title": "NVIDIA Video Codec SDK 13.1：零拷贝转码、AV1 B帧与帧精确寻址",
+    "date": "2026-08-16"
+  },
+  {
+    "url": "https://www.unrealengine.com/news/unreal-engine-5-8-is-now-available",
+    "title": "Unreal Engine 5.8 正式发布：世界构建、动画与虚拟制片全面升级",
+    "date": "2026-08-16"
+  },
+  {
+    "url": "https://replicate.com/blog/flux-3",
+    "title": "FLUX 3 终极指南：从文生视频到音画同步的提示词实战",
+    "date": "2026-08-16"
+  }
+]
