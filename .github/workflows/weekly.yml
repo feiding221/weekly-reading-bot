@@ -9,10 +9,9 @@ permissions:
   contents: write
 
 jobs:
-  run-bot:
+  global:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,18 +24,49 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run bot
+      - name: Run global pipeline
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
           NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
           CHINA_NOTION_DATABASE_ID: ${{ secrets.CHINA_NOTION_DATABASE_ID }}
-        run: python src/main.py
+        run: python -c "from pipelines.global_pipeline import run_global_pipeline; run_global_pipeline()"
 
-      - name: Save article history
+      - name: Save global article history
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/seen_articles.json data/seen_china_articles.json
-          git diff --cached --quiet || git commit -m "chore: update article history"
+          git add data/seen_articles.json
+          git diff --cached --quiet || git commit -m "chore: update global article history"
+          git push
+
+  china:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run China pipeline
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          CHINA_NOTION_DATABASE_ID: ${{ secrets.CHINA_NOTION_DATABASE_ID }}
+        run: python -c "from pipelines.china_pipeline import run_china_pipeline; run_china_pipeline()"
+
+      - name: Save China article history
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/seen_china_articles.json
+          git diff --cached --quiet || git commit -m "chore: update China article history"
           git push
