@@ -87,9 +87,24 @@ def run_china_pipeline():
         print("China AI pipeline completed.")
         return
 
+    # Only articles whose Notion page was actually created are added to history.
+    # Articles that were not recommended, or whose Notion write failed, remain
+    # eligible for evaluation in a later run.
+    written_articles = []
     for item in recommendations:
         print("Creating Notion page:", item.get("title", "Untitled"))
-        create_reading_page(item, data_source_id=CHINA_NOTION_DATA_SOURCE_ID)
+        try:
+            create_reading_page(item, data_source_id=CHINA_NOTION_DATA_SOURCE_ID)
+            written_articles.append(item)
+            print("Notion page created successfully:", item.get("title", "Untitled"))
+        except Exception as exc:
+            print("Failed to create Notion page:", item.get("title", "Untitled"))
+            print("Notion error:", exc)
 
-    update_history(new_articles, history_file=CHINA_HISTORY_FILE)
+    if written_articles:
+        update_history(written_articles, history_file=CHINA_HISTORY_FILE)
+        print("China history updated:", len(written_articles), "articles")
+    else:
+        print("No China articles were written to Notion. History unchanged.")
+
     print("China AI pipeline completed.")
