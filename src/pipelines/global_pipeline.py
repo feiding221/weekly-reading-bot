@@ -114,4 +114,4 @@ def run_global_pipeline():
     else:
         print("No global articles were written to Notion. History unchanged.")
 
-    print("Global AI pipeline completed.\n"):
+    print("Global AI pipeline completed.\n")
