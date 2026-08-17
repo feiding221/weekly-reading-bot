@@ -168,10 +168,27 @@ def generate_china_ai_recommendations(articles, limit=6):
 
 输入中的每篇文章可能包含：标题、RSS摘要、网页正文 content。
 请优先依据正文 content 判断文章价值；正文缺失时再使用标题和RSS摘要。
-不要因为正文抓取失败就直接淘汰文章。
 
+【China 内容地域规则】
+China AI Reading 的“China”不是指 RSS 来源网站所在地区，而是指文章实际内容所属的中国 AI / 数字媒体生态。
+中国来源可能包含大量国际资讯，因此绝不能仅因为 source 来自 InfoQ、量子位、36Kr 等中国媒体，就认为文章属于 China。
+
+必须优先根据网页正文 content 判断文章内容地域：
+- content_scope = "china"：文章核心内容直接属于中国 AI / AIGC / 数字内容 / 游戏与实时技术生态，例如中国公司、国产模型、国产产品、中国企业实践、中国高校或研究机构、中国开发者生态、中国行业应用，以及中国机构对国际技术的具体落地实践。
+- content_scope = "international"：文章核心内容是海外公司、海外模型、海外产品、海外技术博客、海外行业事件等，即使文章由中国媒体发布或转载，也必须判定为 international。
+- 如果标题、摘要与正文存在冲突，以正文为最高依据。
+- 正文为空时，不要凭 source 猜测为 China；只有标题和摘要能够明确证明核心内容属于中国生态时，才可以判定为 china，否则判定为 international。
+
+明确排除的典型国际内容包括但不限于：Anthropic / Claude、OpenAI / ChatGPT、Google / Gemini、Meta AI、NVIDIA 等国际公司自身的纯国际产品或公司新闻，以及其他主要围绕海外主体展开的资讯。
+
+请在每个候选对象中额外输出：
+"content_scope": "china" 或 "international"，
+"content_scope_reason": "一句话说明文章核心内容为什么属于中国或国际生态"。
+
+只有 content_scope = "china" 的文章才允许进入最终 recommendations；content_scope = "international" 的文章必须排除，不得因为价值分数高而保留。
+
+【价值评价】
 目标用户：中国数字媒体技术本科生。
-
 重点关注：
 - 中国AI大模型
 - AIGC图像、视频、3D生成
@@ -181,7 +198,7 @@ def generate_china_ai_recommendations(articles, limit=6):
 - 国产AI开发平台
 - 企业AI应用案例
 
-请对每篇候选文章分别进行以下 6 项 0-100 分评价：
+请对每篇通过地域资格判断的候选文章分别进行以下 6 项 0-100 分评价：
 1. professional_fit：与数字媒体技术专业方向的匹配度。
 2. technical_value：技术深度、技术含量和实践价值。
 3. career_value：对学习、项目实践、技能选择或职业发展的帮助。
@@ -191,7 +208,8 @@ def generate_china_ai_recommendations(articles, limit=6):
 
 综合分由程序按固定权重计算：professional_fit 30% + technical_value 25% + career_value 15% + information_density 15% + source_quality 10% + trend_value 5%。
 
-请先按综合价值排序，并尽量返回最多 6 篇高质量候选，供后续程序进行来源多样性筛选。不要为了凑数量提高低价值文章的分数；如果候选池确实不足，可以少返回，但不要因为候选数量少就随意返回空数组。
+请先过滤掉所有 content_scope = "international" 的文章，再按综合价值排序，并尽量返回最多 6 篇高质量、content_scope = "china" 的候选，供后续程序进行来源多样性筛选。
+不要为了凑数量提高低价值文章的分数；如果符合 China 内容资格的文章不足，可以少返回，但不要用国际文章补位。
 
 【分类规则】
 category 必须且只能从下面 10 个固定分类中选择 1 个：
@@ -214,6 +232,8 @@ LLM、多模态、AI Agent、生成式AI、AI模型、AI图像、AI视频、AI�
       "tags": [],
       "url": "",
       "category": "",
+      "content_scope": "china",
+      "content_scope_reason": "",
       "professional_fit": 0,
       "technical_value": 0,
       "career_value": 0,
