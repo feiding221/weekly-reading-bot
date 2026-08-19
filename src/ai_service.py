@@ -28,6 +28,9 @@ VALUE_WEIGHTS = {
     "trend_value": 5,
 }
 
+GLOBAL_BATCH_SIZE = 10
+GLOBAL_TARGET_CANDIDATES = 6
+
 
 def _calculate_value_score(item):
     total = 0.0
@@ -84,15 +87,6 @@ def _generate_recommendations_with_prompt(articles, system_prompt, limit=6):
     data = json.loads(response.choices[0].message.content)
     recommendations = _sanitize_recommendations(data.get("recommendations", []), limit)
 
-    print("AI candidate scores:")
-    for item in recommendations:
-        print(
-            f"- {item.get('title', 'Untitled')} | "
-            f"score={item.get('value_score', 0)} | "
-            f"category={item.get('category', '')} | "
-            f"tags={item.get('tags', [])}"
-        )
-
     return recommendations
 
 
@@ -115,8 +109,9 @@ def _build_global_prompt(fallback=False):
 
 综合分由程序按固定权重计算：professional_fit 30% + technical_value 25% + career_value 15% + information_density 15% + source_quality 10% + trend_value 5%。
 
-请先按综合价值排序，尽量返回最多 6 篇候选。不要为了凑数量提高低价值文章的分数。
-如果候选池中存在与目标读者明确相关、且包含实质信息的文章，请返回其中最值得保存的候选；不要把“最终推荐数量”理解为必须恰好返回 3 篇。
+请按综合价值排序，返回这一批中最值得保存的候选，最多 6 篇。
+不要为了凑数量提高低价值文章的分数。
+如果这一批不存在值得保存的文章，可以返回更少，甚至返回空数组。
 
 【分类规则】
 category 必须且只能从下面 10 个固定分类中选择 1 个：
@@ -150,7 +145,7 @@ LLM、多模态、AI Agent、生成式AI、AI模型、AI图像、AI视频、AI�
 }
 """
     if fallback:
-        prompt += "\n这是一次兜底重试。放宽宁缺毋滥倾向：只要存在与目标用户相关且包含实质信息的文章，就至少返回 1 篇，并按综合价值排序。不要为了追求特别高的质量而返回空数组。"
+        prompt += "\n这是一次兜底重试。只要求返回这一批中实际值得保存的文章；不要为了凑数量而降低标准。"
     return prompt
 
 
@@ -160,6 +155,50 @@ def generate_reading_recommendations(articles, limit=6, fallback=False):
         _build_global_prompt(fallback=fallback),
         limit,
     )
+
+
+def generate_global_batched_recommendations(articles, batch_size=GLOBAL_BATCH_SIZE, target_candidates=GLOBAL_TARGET_CANDIDATES):
+    """Analyze Global articles in small batches and stop once enough candidates exist."""
+    all_candidates = []
+
+    # Interleave articles by source so early batches are not dominated by one RSS source.
+    grouped = {}
+    source_order = []
+    for article in articles:
+        source = article.get("source", "unknown")
+        if source not in grouped:
+            grouped[source] = []
+            source_order.append(source)
+        grouped[source].append(article)
+
+    mixed_articles = []
+    while True:
+        added = False
+        for source in source_order:
+            if grouped[source]:
+                mixed_articles.append(grouped[source].pop(0))
+                added = True
+        if not added:
+            break
+
+    total_batches = (len(mixed_articles) + batch_size - 1) // batch_size
+
+    for batch_index, start in enumerate(range(0, len(mixed_articles), batch_size), start=1):
+        batch = mixed_articles[start:start + batch_size]
+        candidates = generate_reading_recommendations(batch, limit=6)
+        all_candidates.extend(candidates)
+        all_candidates = _sanitize_recommendations(all_candidates, limit=target_candidates)
+
+        print(
+            f"Global AI batch {batch_index}/{total_batches}: "
+            f"processed={len(batch)}, candidates={len(candidates)}, "
+            f"total_candidates={len(all_candidates)}"
+        )
+
+        if len(all_candidates) >= target_candidates:
+            break
+
+    return all_candidates
 
 
 def generate_china_ai_recommendations(articles, limit=6):
