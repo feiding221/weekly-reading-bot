@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 
 from notion_api import create_reading_page
-from ai_service import generate_reading_recommendations
+from ai_service import generate_global_batched_recommendations
 from content_fetcher import fetch_articles, enrich_articles_with_content
 from dedup import filter_new_articles, update_history
 
@@ -59,17 +59,12 @@ def run_global_pipeline():
     content_count = sum(1 for item in new_articles if item.get("content"))
     print(f"Global content: {content_count}/{len(new_articles)} enriched")
 
-    candidates = generate_reading_recommendations(new_articles, limit=6)
+    candidates = generate_global_batched_recommendations(
+        new_articles,
+        batch_size=10,
+        target_candidates=6,
+    )
     print(f"Global AI: {len(candidates)} candidates")
-
-    if not candidates:
-        print("Global AI: retrying with fallback prompt")
-        candidates = generate_reading_recommendations(
-            new_articles,
-            limit=6,
-            fallback=True,
-        )
-        print(f"Global AI fallback: {len(candidates)} candidates")
 
     recommendations = _select_diverse_recommendations(candidates, limit=3)
     sources = [_source_key(item) for item in recommendations]
