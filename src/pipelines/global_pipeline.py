@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 
 from notion_api import create_reading_page
-from ai_service import generate_global_batched_recommendations
+from ai_service import generate_reading_recommendations
 from content_fetcher import fetch_articles, enrich_articles_with_content
 from dedup import filter_new_articles, update_history
 
@@ -41,6 +41,62 @@ def _print_stats(stats, label="Global"):
     print(f"{label} dedup: URL={stats['duplicate_urls']}, title={stats['duplicate_titles']}, both={stats['duplicate_both']}, new={stats['new_articles']}")
 
 
+def _mix_articles_by_source(articles):
+    """Interleave articles by source so early AI batches are not dominated by one RSS source."""
+    grouped = {}
+    source_order = []
+
+    for article in articles:
+        source = article.get("source", "unknown")
+        if source not in grouped:
+            grouped[source] = []
+            source_order.append(source)
+        grouped[source].append(article)
+
+    mixed_articles = []
+    while True:
+        added = False
+        for source in source_order:
+            if grouped[source]:
+                mixed_articles.append(grouped[source].pop(0))
+                added = True
+        if not added:
+            break
+
+    return mixed_articles
+
+
+def _generate_global_batched_recommendations(articles, batch_size=10, target_candidates=6):
+    """Fetch content and run DeepSeek only for each batch that actually needs analysis."""
+    mixed_articles = _mix_articles_by_source(articles)
+    total_batches = (len(mixed_articles) + batch_size - 1) // batch_size
+    all_candidates = []
+    enriched_count = 0
+
+    for batch_index, start in enumerate(range(0, len(mixed_articles), batch_size), start=1):
+        batch = mixed_articles[start:start + batch_size]
+
+        enrich_articles_with_content(batch)
+        batch_enriched = sum(1 for item in batch if item.get("content"))
+        enriched_count += batch_enriched
+
+        candidates = generate_reading_recommendations(batch, limit=6)
+        all_candidates.extend(candidates)
+        all_candidates.sort(key=lambda item: item.get("value_score", 0), reverse=True)
+        all_candidates = all_candidates[:target_candidates]
+
+        print(
+            f"Global AI batch {batch_index}/{total_batches}: "
+            f"processed={len(batch)}, enriched={batch_enriched}, "
+            f"candidates={len(candidates)}, total_candidates={len(all_candidates)}"
+        )
+
+        if len(all_candidates) >= target_candidates:
+            break
+
+    return all_candidates, enriched_count
+
+
 def run_global_pipeline():
     print("\n=== Global Reading Pipeline ===")
 
@@ -55,15 +111,12 @@ def run_global_pipeline():
         print("Global pipeline completed.")
         return
 
-    enrich_articles_with_content(new_articles)
-    content_count = sum(1 for item in new_articles if item.get("content"))
-    print(f"Global content: {content_count}/{len(new_articles)} enriched")
-
-    candidates = generate_global_batched_recommendations(
+    candidates, content_count = _generate_global_batched_recommendations(
         new_articles,
         batch_size=10,
         target_candidates=6,
     )
+    print(f"Global content: {content_count}/{len(new_articles)} enriched before stopping")
     print(f"Global AI: {len(candidates)} candidates")
 
     recommendations = _select_diverse_recommendations(candidates, limit=3)
