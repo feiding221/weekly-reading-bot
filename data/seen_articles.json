@@ -13,5 +13,15 @@
     "url": "https://replicate.com/blog/flux-3",
     "title": "FLUX 3 终极指南：从文生视频到音画同步的提示词实战",
     "date": "2026-08-16"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/developing-nvidia-holoscan-applications-with-cli-skills-and-ai-coding-agents/",
+    "title": "使用 CLI、技能和 AI 编码代理开发 NVIDIA Holoscan 应用",
+    "date": "2026-08-20"
+  },
+  {
+    "url": "https://deepmind.google/blog/introducing-gemini-3-7-flash/",
+    "title": "Gemini 3.7 Flash 介绍",
+    "date": "2026-08-20"
   }
 ]
