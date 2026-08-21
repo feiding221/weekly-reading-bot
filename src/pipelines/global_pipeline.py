@@ -1,9 +1,14 @@
+import json
 from urllib.parse import urlparse
 
 from notion_api import create_reading_page
-from ai_service import generate_reading_recommendations
+from ai_service import client, _build_global_prompt, _sanitize_recommendations
 from content_fetcher import fetch_articles, enrich_articles_with_content
 from dedup import filter_new_articles, update_history
+
+
+GLOBAL_AI_CONTENT_LIMIT = 3000
+GLOBAL_AI_MAX_OUTPUT_TOKENS = 3000
 
 
 def _source_key(item):
@@ -66,6 +71,44 @@ def _mix_articles_by_source(articles):
     return mixed_articles
 
 
+def _compact_article_for_ai(article):
+    """Send only the fields needed by the Global selector and cap long page text."""
+    content = article.get("content", "") or ""
+    if len(content) > GLOBAL_AI_CONTENT_LIMIT:
+        content = (
+            content[:2200]
+            + "\n...[正文中段已省略，仅保留首尾关键信息]...\n"
+            + content[-800:]
+        )
+
+    return {
+        "title": article.get("title", ""),
+        "summary": article.get("summary", ""),
+        "source": article.get("source", ""),
+        "url": article.get("url", ""),
+        "content": content,
+    }
+
+
+def _generate_global_batch_recommendations(batch, limit=6):
+    """Use non-thinking mode and a bounded output budget for the Global selector."""
+    compact_articles = [_compact_article_for_ai(article) for article in batch]
+
+    response = client.chat.completions.create(
+        model="deepseek-v4-flash",
+        response_format={"type": "json_object"},
+        max_tokens=GLOBAL_AI_MAX_OUTPUT_TOKENS,
+        extra_body={"thinking": {"type": "disabled"}},
+        messages=[
+            {"role": "system", "content": _build_global_prompt()},
+            {"role": "user", "content": json.dumps(compact_articles, ensure_ascii=False)},
+        ],
+    )
+
+    data = json.loads(response.choices[0].message.content)
+    return _sanitize_recommendations(data.get("recommendations", []), limit)
+
+
 def _generate_global_batched_recommendations(articles, batch_size=10, target_candidates=6):
     """Fetch content and run DeepSeek only for each batch that actually needs analysis."""
     mixed_articles = _mix_articles_by_source(articles)
@@ -82,7 +125,7 @@ def _generate_global_batched_recommendations(articles, batch_size=10, target_can
         batch_enriched = sum(1 for item in batch if item.get("content"))
         enriched_count += batch_enriched
 
-        candidates = generate_reading_recommendations(batch, limit=6)
+        candidates = _generate_global_batch_recommendations(batch, limit=6)
         all_candidates.extend(candidates)
         all_candidates.sort(key=lambda item: item.get("value_score", 0), reverse=True)
         all_candidates = all_candidates[:target_candidates]
