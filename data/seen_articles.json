@@ -43,5 +43,15 @@
     "url": "https://huggingface.co/blog/LiquidAI/lfm25-dspark",
     "title": "利用 LFM2.5-DSpark 实现最高 3.2 倍加速推理",
     "date": "2026-08-21"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/nvidia-avo-reaches-100-on-arc-agi-3-demonstrating-a-frontier-level-general-purpose-architecture-for-long-horizon-autonomous-agents/",
+    "title": "NVIDIA AVO 在 ARC-AGI-3 上达到 100%：面向长时程自主智能体的前沿通用架构",
+    "date": "2026-08-21"
+  },
+  {
+    "url": "https://deepmind.google/blog/from-atari-to-eve-online-building-on-15-years-of-ai-research-in-games/",
+    "title": "从 Atari 到 EVE Online：基于 15 年游戏 AI 研究",
+    "date": "2026-08-21"
   }
 ]
