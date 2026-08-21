@@ -6,6 +6,10 @@ from content_fetcher import fetch_china_articles, enrich_articles_with_content
 from dedup import CHINA_HISTORY_FILE, filter_new_articles, update_history
 
 
+CHINA_AI_BATCH_SIZE = 10
+CHINA_AI_TARGET_CANDIDATES = 6
+
+
 def _source_key(item):
     """Use the article URL domain as the stable source identifier."""
     url = item.get("url", "")
@@ -41,6 +45,63 @@ def _print_stats(stats):
     print(f"China dedup: URL={stats['duplicate_urls']}, title={stats['duplicate_titles']}, both={stats['duplicate_both']}, new={stats['new_articles']}")
 
 
+def _generate_china_batched_recommendations(articles):
+    """Send China articles to DeepSeek in small batches and stop once enough candidates exist."""
+    all_candidates = []
+    total_batches = (len(articles) + CHINA_AI_BATCH_SIZE - 1) // CHINA_AI_BATCH_SIZE
+
+    for batch_index, start in enumerate(
+        range(0, len(articles), CHINA_AI_BATCH_SIZE),
+        start=1,
+    ):
+        batch = articles[start:start + CHINA_AI_BATCH_SIZE]
+
+        try:
+            candidates = generate_china_ai_recommendations(batch, limit=6)
+        except Exception as exc:
+            print(
+                f"China AI batch {batch_index}/{total_batches} failed: "
+                f"{type(exc).__name__}: {exc}"
+            )
+            continue
+
+        all_candidates.extend(candidates)
+
+        # Keep only the strongest candidates gathered so far.
+        deduped = []
+        seen_urls = set()
+        seen_titles = set()
+        for item in sorted(
+            all_candidates,
+            key=lambda value: value.get("value_score", 0),
+            reverse=True,
+        ):
+            url = item.get("url", "").strip()
+            title = item.get("title", "").strip()
+            if url and url in seen_urls:
+                continue
+            if title and title in seen_titles:
+                continue
+            if url:
+                seen_urls.add(url)
+            if title:
+                seen_titles.add(title)
+            deduped.append(item)
+
+        all_candidates = deduped[:CHINA_AI_TARGET_CANDIDATES]
+
+        print(
+            f"China AI batch {batch_index}/{total_batches}: "
+            f"processed={len(batch)}, candidates={len(candidates)}, "
+            f"total_candidates={len(all_candidates)}"
+        )
+
+        if len(all_candidates) >= CHINA_AI_TARGET_CANDIDATES:
+            break
+
+    return all_candidates
+
+
 def run_china_pipeline():
     print("\n=== China AI Reading Pipeline ===")
 
@@ -67,7 +128,7 @@ def run_china_pipeline():
     content_count = sum(1 for item in new_articles if item.get("content"))
     print(f"China content: {content_count}/{len(new_articles)} enriched")
 
-    candidates = generate_china_ai_recommendations(new_articles, limit=6)
+    candidates = _generate_china_batched_recommendations(new_articles)
     print(f"China AI: {len(candidates)} candidates")
 
     recommendations = _select_diverse_recommendations(candidates, limit=3)
