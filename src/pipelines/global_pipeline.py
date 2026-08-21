@@ -8,7 +8,7 @@ from dedup import filter_new_articles, update_history
 
 
 GLOBAL_AI_CONTENT_LIMIT = 3000
-GLOBAL_AI_MAX_OUTPUT_TOKENS = 3000
+GLOBAL_AI_MAX_OUTPUT_TOKENS = 2200
 
 
 def _source_key(item):
@@ -16,30 +16,6 @@ def _source_key(item):
     url = item.get("url", "")
     hostname = urlparse(url).netloc.lower()
     return hostname.removeprefix("www.") or item.get("source", "unknown").strip().lower()
-
-
-def _select_diverse_recommendations(recommendations, limit=3):
-    """Prefer one recommendation per source, then fill remaining slots if needed."""
-    selected = []
-    used_sources = set()
-
-    for item in recommendations:
-        source = _source_key(item)
-        if source in used_sources:
-            continue
-        selected.append(item)
-        used_sources.add(source)
-        if len(selected) >= limit:
-            return selected
-
-    for item in recommendations:
-        if item in selected:
-            continue
-        selected.append(item)
-        if len(selected) >= limit:
-            break
-
-    return selected
 
 
 def _print_stats(stats, label="Global"):
@@ -90,9 +66,18 @@ def _compact_article_for_ai(article):
     }
 
 
-def _generate_global_batch_recommendations(batch, limit=6):
-    """Use non-thinking mode and a bounded output budget for the Global selector."""
+def _generate_global_batch_recommendations(batch, limit=3):
+    """Let each batch directly return final recommendations; do not build a candidate pool."""
     compact_articles = [_compact_article_for_ai(article) for article in batch]
+
+    final_prompt = _build_global_prompt() + """
+
+【Global最终推荐模式】
+本次不是建立候选池，而是直接为 Global AI Reading 选择最终要写入 Notion 的文章。
+请在这一批文章中直接挑选最值得保存的文章，最多 3 篇。
+只返回你认为真正达到保存标准的文章；如果没有足够高价值的文章，可以返回更少，甚至返回空数组。
+不要为了后续排序而额外扩大返回数量，不要返回“候选文章”。
+"""
 
     response = client.chat.completions.create(
         model="deepseek-v4-flash",
@@ -100,7 +85,7 @@ def _generate_global_batch_recommendations(batch, limit=6):
         max_tokens=GLOBAL_AI_MAX_OUTPUT_TOKENS,
         extra_body={"thinking": {"type": "disabled"}},
         messages=[
-            {"role": "system", "content": _build_global_prompt()},
+            {"role": "system", "content": final_prompt},
             {"role": "user", "content": json.dumps(compact_articles, ensure_ascii=False)},
         ],
     )
@@ -109,11 +94,12 @@ def _generate_global_batch_recommendations(batch, limit=6):
     return _sanitize_recommendations(data.get("recommendations", []), limit)
 
 
-def _generate_global_batched_recommendations(articles, batch_size=10, target_candidates=6):
-    """Fetch content and run DeepSeek only for each batch that actually needs analysis."""
+def _generate_global_batched_recommendations(articles, batch_size=10, target_recommendations=3):
+    """Process Global articles in batches and collect final recommendations directly."""
     mixed_articles = _mix_articles_by_source(articles)
     total_batches = (len(mixed_articles) + batch_size - 1) // batch_size
-    all_candidates = []
+    recommendations = []
+    used_sources = set()
     enriched_count = 0
 
     for batch_index, start in enumerate(range(0, len(mixed_articles), batch_size), start=1):
@@ -125,21 +111,32 @@ def _generate_global_batched_recommendations(articles, batch_size=10, target_can
         batch_enriched = sum(1 for item in batch if item.get("content"))
         enriched_count += batch_enriched
 
-        candidates = _generate_global_batch_recommendations(batch, limit=6)
-        all_candidates.extend(candidates)
-        all_candidates.sort(key=lambda item: item.get("value_score", 0), reverse=True)
-        all_candidates = all_candidates[:target_candidates]
+        batch_recommendations = _generate_global_batch_recommendations(batch, limit=3)
+
+        # Add suitable articles directly to the final list. Keep source diversity
+        # here instead of building a larger candidate pool and sorting it later.
+        added_this_batch = 0
+        for item in batch_recommendations:
+            source = _source_key(item)
+            if source in used_sources:
+                continue
+            recommendations.append(item)
+            used_sources.add(source)
+            added_this_batch += 1
+            if len(recommendations) >= target_recommendations:
+                break
 
         print(
             f"Global AI batch {batch_index}/{total_batches}: "
             f"processed={len(batch)}, enriched={batch_enriched}, "
-            f"candidates={len(candidates)}, total_candidates={len(all_candidates)}"
+            f"recommendations={added_this_batch}, "
+            f"total_recommendations={len(recommendations)}"
         )
 
-        if len(all_candidates) >= target_candidates:
+        if len(recommendations) >= target_recommendations:
             break
 
-    return all_candidates, enriched_count
+    return recommendations, enriched_count
 
 
 def run_global_pipeline():
@@ -156,17 +153,15 @@ def run_global_pipeline():
         print("Global pipeline completed.")
         return
 
-    candidates, content_count = _generate_global_batched_recommendations(
+    recommendations, content_count = _generate_global_batched_recommendations(
         new_articles,
         batch_size=10,
-        target_candidates=6,
+        target_recommendations=3,
     )
     print(f"Global content: {content_count}/{len(new_articles)} enriched before stopping")
-    print(f"Global AI: {len(candidates)} candidates")
+    print(f"Global AI: {len(recommendations)} final recommendations")
 
-    recommendations = _select_diverse_recommendations(candidates, limit=3)
     sources = [_source_key(item) for item in recommendations]
-    print(f"Global recommendations: {len(recommendations)}")
     print(f"Global sources: {', '.join(sources) if sources else 'none'}")
 
     if not recommendations:
