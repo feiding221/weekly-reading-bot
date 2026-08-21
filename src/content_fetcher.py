@@ -1,5 +1,6 @@
 import feedparser
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from html import unescape
 
 import requests
@@ -102,13 +103,39 @@ def fetch_articles_from_sources(sources, limit=10):
     return articles, source_stats
 
 
-def enrich_articles_with_content(articles, limit=None):
-    """Fetch article pages only for the articles that need deeper analysis."""
-    selected = articles if limit is None else articles[:limit]
-    for article in selected:
-        if article.get("content"):
-            continue
-        article["content"] = _extract_article_text(article.get("url", ""))
+def enrich_articles_with_content(articles, limit=None, max_workers=1):
+    """Fetch article pages only for the articles that need deeper analysis.
+
+    max_workers=1 keeps the original sequential behavior. Pipelines can opt into
+    bounded concurrency when they need to reduce wall-clock time without changing
+    how many articles are fetched or sent to the model.
+    """
+    selected = [
+        article for article in (articles if limit is None else articles[:limit])
+        if not article.get("content")
+    ]
+
+    if not selected:
+        return articles
+
+    if max_workers <= 1:
+        for article in selected:
+            article["content"] = _extract_article_text(article.get("url", ""))
+        return articles
+
+    worker_count = min(max_workers, len(selected))
+    with ThreadPoolExecutor(max_workers=worker_count) as executor:
+        future_to_article = {
+            executor.submit(_extract_article_text, article.get("url", "")): article
+            for article in selected
+        }
+        for future in as_completed(future_to_article):
+            article = future_to_article[future]
+            try:
+                article["content"] = future.result()
+            except Exception:
+                article["content"] = ""
+
     return articles
 
 
