@@ -76,7 +76,9 @@ def _generate_global_batched_recommendations(articles, batch_size=10, target_can
     for batch_index, start in enumerate(range(0, len(mixed_articles), batch_size), start=1):
         batch = mixed_articles[start:start + batch_size]
 
-        enrich_articles_with_content(batch)
+        # Global only: article pages are independent HTTP requests, so bounded
+        # concurrency cuts wall-clock time without increasing article count or API calls.
+        enrich_articles_with_content(batch, max_workers=8)
         batch_enriched = sum(1 for item in batch if item.get("content"))
         enriched_count += batch_enriched
 
