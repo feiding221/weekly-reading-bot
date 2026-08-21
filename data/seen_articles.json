@@ -33,5 +33,15 @@
     "url": "https://www.cgchannel.com/2026/08/see-how-vine-fx-created-150-vfx-shots-for-enola-holmes-3/",
     "title": "Vine FX如何为《福尔摩斯小姐3》制作150个VFX镜头",
     "date": "2026-08-21"
+  },
+  {
+    "url": "https://developer.nvidia.com/blog/how-generative-recommenders-are-redefining-recsys-at-scale/",
+    "title": "生成式推荐系统如何重新定义大规模 RecSys",
+    "date": "2026-08-21"
+  },
+  {
+    "url": "https://huggingface.co/blog/LiquidAI/lfm25-dspark",
+    "title": "利用 LFM2.5-DSpark 实现最高 3.2 倍加速推理",
+    "date": "2026-08-21"
   }
 ]
