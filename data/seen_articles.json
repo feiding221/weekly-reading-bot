@@ -53,5 +53,15 @@
     "url": "https://deepmind.google/blog/from-atari-to-eve-online-building-on-15-years-of-ai-research-in-games/",
     "title": "从 Atari 到 EVE Online：基于 15 年游戏 AI 研究",
     "date": "2026-08-21"
+  },
+  {
+    "url": "https://huggingface.co/blog/asr-benchmark-optimization",
+    "title": "测量语音识别中的基准优化问题",
+    "date": "2026-08-22"
+  },
+  {
+    "url": "https://openai.com/index/introducing-ai-futures",
+    "title": "AI与自由：OpenAI战略未来博客启动",
+    "date": "2026-08-22"
   }
 ]
