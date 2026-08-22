@@ -94,8 +94,8 @@ def _generate_global_batch_recommendations(batch, limit=3):
     return _sanitize_recommendations(data.get("recommendations", []), limit)
 
 
-def _generate_global_batched_recommendations(articles, batch_size=10, target_recommendations=3):
-    """Process Global articles in batches and collect final recommendations directly."""
+def _generate_global_batched_recommendations(articles, batch_size=6, target_recommendations=3):
+    """Process Global articles in small batches and collect final recommendations directly."""
     mixed_articles = _mix_articles_by_source(articles)
     total_batches = (len(mixed_articles) + batch_size - 1) // batch_size
     recommendations = []
@@ -155,7 +155,7 @@ def run_global_pipeline():
 
     recommendations, content_count = _generate_global_batched_recommendations(
         new_articles,
-        batch_size=10,
+        batch_size=6,
         target_recommendations=3,
     )
     print(f"Global content: {content_count}/{len(new_articles)} enriched before stopping")
